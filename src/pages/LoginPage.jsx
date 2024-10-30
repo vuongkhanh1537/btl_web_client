@@ -96,24 +96,24 @@ const LoginPage = () => {
               </div>
 
               {!isLogin && (
-                <div class="flex items-start">
-                  <div class="flex items-center h-5">
+                <div className="flex items-start">
+                  <div className="flex items-center h-5">
                     <input
                       id="terms"
                       aria-describedby="terms"
                       type="checkbox"
-                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                       required
                     />
                   </div>
-                  <div class="ml-3 text-sm">
+                  <div className="ml-3 text-sm">
                     <label
-                      for="terms"
-                      class="font-light text-gray-500 dark:text-gray-300"
+                      htmlFor="terms"
+                      className="font-light text-gray-500 dark:text-gray-300"
                     >
                       I accept the{" "}
                       <a
-                        class="font-medium text-indigo-600 hover:underline dark:text-primary-500"
+                        className="font-medium text-indigo-600 hover:underline dark:text-primary-500"
                         href="#"
                       >
                         Terms and Conditions
@@ -146,15 +146,15 @@ const LoginPage = () => {
                 {isLogin ? "Login" : "Create an account"}
               </button>
 
-              <div class="flex items-center justify-center space-x-2">
-                <div class="w-1/3 h-0.5 bg-gray-300 dark:bg-gray-700"></div>
-                <p class="text-gray-400 dark:text-gray-500">or</p>
-                <div class="w-1/3 h-0.5 bg-gray-300 dark:bg-gray-700"></div>
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-1/3 h-0.5 bg-gray-300 dark:bg-gray-700"></div>
+                <p className="text-gray-400 dark:text-gray-500">or</p>
+                <div className="w-1/3 h-0.5 bg-gray-300 dark:bg-gray-700"></div>
             </div>
 
-              <button type="button" class="w-full text-center font-medium py-2 border flex items-center justify-center border-indigo-200 rounded-lg text-gray-700 hover:border-indigo-500 hover:text-gray-900 hover:shadow transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
-                <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-5 h-5 mr-2" alt="Google Icon" />
-                <span class="dark:text-gray-300">{isLogin? 'Login' : 'Sign up'} with Google</span>
+              <button type="button" className="w-full text-center font-medium py-2 border flex items-center justify-center border-indigo-200 rounded-lg text-gray-700 hover:border-indigo-500 hover:text-gray-900 hover:shadow transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+                <img src="https://www.svgrepo.com/show/355037/google.svg" className="w-5 h-5 mr-2" alt="Google Icon" />
+                <span className="dark:text-gray-300">{isLogin? 'Login' : 'Sign up'} with Google</span>
             </button>
 
             
