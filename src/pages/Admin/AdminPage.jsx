@@ -1,16 +1,11 @@
 // Admin.jsx
 
 import { Routes, Route } from "react-router-dom";
-
-
 import Dashboard from "../Dashboard/Dashboard";
 import ProductList from "../Products/ProductList";
 import EditProduct from "../Products/EditProduct";
 import CreateProduct from "../Products/CreateProduct";
 import PageNotFound from "../PageNotFound";
-
-
-
 import ProductDetail from "../Products/ProductDetail";
 import OrderList from "../Orders/OrderList";
 import OrderDetail from "../Orders/OrderDetail";
@@ -24,6 +19,9 @@ import { fetchProductData } from "../../services/ProductService";
 import { fetchOrdersData } from "../../services/OrderService";
 import { useEffect, useState } from "react";
 import AdminLayout from "../../Layouts/AdminLayout";
+import '../../styles/global.css';
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/js/bootstrap.bundle.min";
 
 function AdminPage() {
   const [productData, setProductData] = useState(initialProductData);

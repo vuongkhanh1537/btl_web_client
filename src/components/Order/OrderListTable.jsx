@@ -28,7 +28,7 @@ function OrderListTable({ orderData, filteredOrderData, setOrderData }) {
   function handleClickView(id) {
     setSelectedOrderId(id);
 
-    navigate(`/orders/detail/${id}`);
+    navigate(`../detail/${id}`);
   }
 
   const selectedOrder = orderData.find(

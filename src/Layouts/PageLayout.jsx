@@ -11,6 +11,7 @@ function PageLayout({children, pageTitle}) {
           </div>
           {children}
         </div>
+        
       </div>
     )
 }

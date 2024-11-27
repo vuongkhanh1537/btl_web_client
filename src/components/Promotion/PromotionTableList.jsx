@@ -29,8 +29,8 @@ function PromotionTableList({ promotionData, setPromotionData }) {
   }
 
   function handleClickAdd() {
+    
     setSelectedPromotionID("");
-
     handleToggleModal();
   }
 
