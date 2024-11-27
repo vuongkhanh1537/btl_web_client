@@ -10,7 +10,7 @@ const ProductListPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const categories = ['all', 'running', 'casual', 'basketball', 'lifestyle'];
+  const categories = ['all', 'unisex', 'men', 'basketball', 'lifestyle'];
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());

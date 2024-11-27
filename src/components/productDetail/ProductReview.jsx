@@ -78,7 +78,7 @@ const ProductReviews = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Tổng quan đánh giá */}
       <div className="bg-white rounded-lg p-6 shadow-sm">
-        <h2 className="text-2xl font-bold mb-6">Đánh giá sản phẩm</h2>
+        <h2 className="text-2xl font-bold mb-6">Reviews</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Điểm đánh giá trung bình */}
@@ -89,7 +89,7 @@ const ProductReviews = () => {
             <div className="flex justify-center mb-2">
               {renderStars(Math.round(averageRating))}
             </div>
-            <p className="text-gray-500">{reviews.length} đánh giá</p>
+            <p className="text-gray-500">{reviews.length} reviews</p>
           </div>
 
           {/* Phân bố số sao */}
@@ -122,7 +122,7 @@ const ProductReviews = () => {
       <div className="mt-8 flex flex-wrap gap-4 items-center">
         <div className="flex items-center space-x-2">
           <Filter className="w-5 h-5" />
-          <span className="text-sm font-medium">Lọc theo:</span>
+          <span className="text-sm font-medium">Filter:</span>
         </div>
 
         <Select value={filterRating} onValueChange={setFilterRating}>
@@ -130,12 +130,12 @@ const ProductReviews = () => {
             <SelectValue placeholder="Số sao" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Tất cả sao</SelectItem>
-            <SelectItem value="5">5 sao</SelectItem>
-            <SelectItem value="4">4 sao</SelectItem>
-            <SelectItem value="3">3 sao</SelectItem>
-            <SelectItem value="2">2 sao</SelectItem>
-            <SelectItem value="1">1 sao</SelectItem>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="5">5 stars</SelectItem>
+            <SelectItem value="4">4 stars</SelectItem>
+            <SelectItem value="3">3 stars</SelectItem>
+            <SelectItem value="2">2 stars</SelectItem>
+            <SelectItem value="1">1 star</SelectItem>
           </SelectContent>
         </Select>
 
@@ -144,10 +144,10 @@ const ProductReviews = () => {
             <SelectValue placeholder="Sắp xếp" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="newest">Mới nhất</SelectItem>
-            <SelectItem value="oldest">Cũ nhất</SelectItem>
-            <SelectItem value="highest">Đánh giá cao nhất</SelectItem>
-            <SelectItem value="lowest">Đánh giá thấp nhất</SelectItem>
+            <SelectItem value="newest">Newest</SelectItem>
+            <SelectItem value="oldest">Oldest</SelectItem>
+            <SelectItem value="highest">Highest</SelectItem>
+            <SelectItem value="lowest">Lowest</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -162,7 +162,7 @@ const ProductReviews = () => {
                   <span className="font-medium">{review.userName}</span>
                   {review.isVerifiedPurchase && (
                     <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full">
-                      Đã mua hàng
+                      Verified Purchase
                     </span>
                   )}
                 </div>
@@ -195,7 +195,7 @@ const ProductReviews = () => {
             <div className="mt-4 text-sm text-gray-500">
               <span>Size: {review.size}</span>
               <span className="mx-2">•</span>
-              <span>Màu: {review.color}</span>
+              <span>Color: {review.color}</span>
             </div>
           </div>
         ))}
@@ -204,7 +204,7 @@ const ProductReviews = () => {
       {/* Phân trang */}
       <div className="mt-8 flex justify-center">
         <Button variant="outline" className="flex items-center space-x-2">
-          <span>Xem thêm đánh giá</span>
+          <span>More</span>
           <ChevronDown className="w-4 h-4" />
         </Button>
       </div>

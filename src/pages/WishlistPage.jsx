@@ -16,7 +16,10 @@ const WishlistPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">My Wishlist</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-4">Wishlist</h1>
+        <p className="text-gray-600">Affirm your fashion style</p>
+      </div>
       {wishlistItems.length === 0 ? (
         <div className="text-center py-8">
           <p className="text-gray-500 text-lg">Your wishlist is empty</p>

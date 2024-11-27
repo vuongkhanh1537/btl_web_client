@@ -110,7 +110,7 @@ const ProductInfo = () => {
           <div className="flex items-center space-x-2">
             <div className="flex">{renderStars(selectedVariant.rating)}</div>
             <span className="text-gray-600">
-              ({selectedVariant.rating} sao)
+              ({selectedVariant.rating} stars)
             </span>
           </div>
 
@@ -140,7 +140,7 @@ const ProductInfo = () => {
 
           {/* Chọn màu */}
           <div>
-            <h3 className="text-sm font-medium text-gray-900">Màu sắc</h3>
+            <h3 className="text-sm font-medium text-gray-900">Color</h3>
             <div className="grid grid-cols-4 gap-2 mt-2">
               {availableColors.map((color) => (
                 <button
@@ -160,7 +160,7 @@ const ProductInfo = () => {
 
           {/* Số lượng */}
           <div>
-            <h3 className="text-sm font-medium text-gray-900">Số lượng</h3>
+            <h3 className="text-sm font-medium text-gray-900">Available</h3>
             <div className="flex items-center space-x-4 mt-2">
               <button
                 className="p-2 rounded-md bg-gray-100 hover:bg-gray-200"
@@ -176,7 +176,7 @@ const ProductInfo = () => {
                 <Plus className="w-4 h-4" />
               </button>
               <span className="text-sm text-gray-500">
-                {selectedVariant.quantity} sản phẩm có sẵn
+                {selectedVariant.quantity} items available
               </span>
             </div>
           </div>
@@ -184,18 +184,18 @@ const ProductInfo = () => {
           {/* Thông tin chi tiết */}
           <div className="border-t pt-6">
             <h3 className="text-sm font-medium text-gray-900">
-              Thông tin chi tiết
+              Detail Information
             </h3>
             <dl className="mt-4 space-y-4">
               <div className="grid grid-cols-3 gap-4">
-                <dt className="text-sm font-medium text-gray-500">Danh mục</dt>
+                <dt className="text-sm font-medium text-gray-500">Category</dt>
                 <dd className="text-sm text-gray-900 col-span-2">
                   {selectedVariant.category}
                 </dd>
               </div>
               <div className="grid grid-cols-3 gap-4">
                 <dt className="text-sm font-medium text-gray-500">
-                  Trọng lượng
+                  Weight
                 </dt>
                 <dd className="text-sm text-gray-900 col-span-2">
                   {selectedVariant.weight}
@@ -207,12 +207,12 @@ const ProductInfo = () => {
           {/* Nút thêm vào giỏ hàng */}
           <button className="mt-6 w-full bg-gray-900 text-white py-3 px-4 rounded-md hover:bg-gray-800 flex items-center justify-center space-x-2">
             <ShoppingCart className="w-5 h-5" />
-            <span>Thêm vào giỏ hàng</span>
+            <span>Add to Cart</span>
           </button>
         </div>
       </div>
       <div>
-        <h3 className="text-2xl font-bold text-gray-900 mt-8">Mô tả sản phẩm</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8">Description</h3>
         <p className="mt-4 text-gray-600">{selectedVariant.description}</p>
       </div>
     </div>
