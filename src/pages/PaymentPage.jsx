@@ -4,21 +4,17 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CreditCard, Truck, MapPin } from "lucide-react";
 import DeliveryAddress from "@/components/DeliveryAddress";
 import { useNavigate } from "react-router-dom";
+import { useHome } from "@/providers/HomeProvider";
 
 const PaymentPage = () => {
   const navigate = useNavigate();
+  const { cartItems } = useHome();
   const [paymentMethod, setPaymentMethod] = useState("");
   const [cardData, setCardData] = useState({
     cardNumber: '',
     expiryDate: '',
     cvv: ''
   });
-
-  // Giả lập dữ liệu giỏ hàng
-  const cartItems = [
-    { id: 1, name: "Giày Nike Air Max", price: 2500000, quantity: 1 },
-    { id: 2, name: "Giày Adidas Boost", price: 2800000, quantity: 1 },
-  ];
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,

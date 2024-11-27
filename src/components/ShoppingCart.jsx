@@ -2,46 +2,11 @@ import React, { useState } from 'react';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useNavigate } from 'react-router-dom';
+import { useHome } from '@/providers/HomeProvider';
 
 const ShoppingCart = () => {
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Nike Air Max 270",
-      price: 3200000,
-      size: 42,
-      color: "Đen/Trắng",
-      quantity: 1,
-      image: "/api/placeholder/120/120"
-    },
-    {
-      id: 2,
-      name: "Adidas Ultraboost",
-      price: 4100000,
-      size: 41,
-      color: "Xám",
-      quantity: 2,
-      image: "/api/placeholder/120/120"
-    },{
-      id: 3,
-      name: "Nike Air Max 270",
-      price: 3200000,
-      size: 42,
-      color: "Đen/Trắng",
-      quantity: 1,
-      image: "/api/placeholder/120/120"
-    },
-    {
-      id: 4,
-      name: "Adidas Ultraboost",
-      price: 4100000,
-      size: 41,
-      color: "Xám",
-      quantity: 2,
-      image: "/api/placeholder/120/120"
-    }
-  ]);
+  const { cartItems, setCartItems } = useHome();
 
   const [promoCode, setPromoCode] = useState('');
   const [discount, setDiscount] = useState(0);
