@@ -6,8 +6,8 @@ import { IoMoonOutline } from "react-icons/io5";
 import TopBarItem from "./TopBarItem";
 function TopBar({ showSideBar, setShowSideBar }) {
   function handleToggleSideBar() {
-    setShowSideBar((showSideBar) => !showSideBar);
-    console.log('render');
+    setShowSideBar((prev) => !prev);
+    
   }
 
   return (

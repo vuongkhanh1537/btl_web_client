@@ -1,12 +1,14 @@
 // AdminLayout.jsx
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import TopBar from "../components/TopBar";
 
-const AdminLayout = ({ children, showSideBar, setShowSideBar }) => {
+const AdminLayout = ({ children}) => {
+  const [showSideBar, setShowSideBar] = useState(true);
+
   return (
     <div className="layout-wrapper">
-      {showSideBar && <Sidebar />}
+      <Sidebar showSideBar={showSideBar} />
       <div className="content">
         <TopBar showSideBar={showSideBar} setShowSideBar={setShowSideBar} />
         <div className="main-content">{children}</div>

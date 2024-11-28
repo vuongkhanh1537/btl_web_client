@@ -51,28 +51,13 @@ function PromotionTableList({ promotionData, setPromotionData }) {
 
   return (
     <>
-      <PromotionModal
-        showModal={showModal}
-        selectedPromotionID={selectedPromotionID}
-        handleToggleModal={handleToggleModal}
-        promotionData={promotionData}
-        setPromotionData={setPromotionData}
-      />
-      <DeleteModal
-        showModal={showDeleteModal}
-        handleToggleModal={handleToggleDeleteModal}
-        title="Delete Promotion"
-        body="Are you sure you want to delete this promotion?"
-        close="Cancel"
-        confirm="Delete"
-        handleConfirm={() => handleDeletePromotion(selectedPromotionID)}
-      />
-      <div className="d-flex flex-row-reverse p-3" style={{ width: "100%" }}>
+      
+      <div className="flex justify-end p-3 w-full" style={{ width: "100%" }}>
         <button
-          className="btn btn-sm btn-primary me-3"
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-700 transition"
           onClick={() => handleClickAdd()}
         >
-          Add Promotion
+         + Add Promotion
         </button>
       </div>
       <Grid
@@ -83,7 +68,7 @@ function PromotionTableList({ promotionData, setPromotionData }) {
           formatDate(promotion.start_date),
           formatDate(promotion.end_date),
           _(
-            <div className="btn-actions">
+            <div className="flex gap-2">
               {/* <Tooltip title="View" placement="top">
                 <button
                   className="btn btn-light btn-sm"
@@ -94,7 +79,7 @@ function PromotionTableList({ promotionData, setPromotionData }) {
               </Tooltip> */}
               <Tooltip title="Edit" placement="top">
                 <button
-                  className="btn btn-primary btn-sm"
+                  className="px-2 py-2 text-sm bg-orange-500 text-white rounded hover:bg-orange-700 transition"
                   onClick={() => handleClickEdit(promotion.code_id)}
                 >
                   <AiOutlineEdit />{" "}
@@ -102,7 +87,7 @@ function PromotionTableList({ promotionData, setPromotionData }) {
               </Tooltip>
               <Tooltip title="Delete" placement="top">
                 <button
-                  className="btn btn-danger btn-sm"
+                  className="px-2 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-700 transition"
                   onClick={() => handleClickDelete(promotion.code_id)}
                 >
                   <MdOutlineDelete />{" "}
@@ -130,7 +115,24 @@ function PromotionTableList({ promotionData, setPromotionData }) {
           border: "none",
         }}
       />
+      <PromotionModal
+        showModal={showModal}
+        selectedPromotionID={selectedPromotionID}
+        handleToggleModal={handleToggleModal}
+        promotionData={promotionData}
+        setPromotionData={setPromotionData}
+      />
+      <DeleteModal
+        showModal={showDeleteModal}
+        handleToggleModal={handleToggleDeleteModal}
+        title="Delete Promotion"
+        body="Are you sure you want to delete this promotion?"
+        close="Cancel"
+        confirm="Delete"
+        handleConfirm={() => handleDeletePromotion(selectedPromotionID)}
+      />
     </>
+
   );
 }
 

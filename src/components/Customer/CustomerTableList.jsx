@@ -18,10 +18,10 @@ function CustomerTableList({ customerData, setCustomerData }) {
           
           
           _(
-            <div className="btn-actions">
+            <div className="flex gap-1">
               <Tooltip title="View" placement="top">
                 <button
-                  className="btn btn-light btn-sm"
+                  className="px-2 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-200 transition"
                 //   onClick={() => handleClickView(product.product_id)}
                 >
                   <MdOutlineRemoveRedEye />{" "}
@@ -29,7 +29,7 @@ function CustomerTableList({ customerData, setCustomerData }) {
               </Tooltip>
               <Tooltip title="Edit" placement="top">
                 <button
-                  className="btn btn-primary btn-sm"
+                  className="px-2 py-2 text-sm bg-orange-500 text-white rounded hover:bg-orange-700 transition"
                 //   onClick={() => handleClickEdit(product.product_id)}
                 >
                   <AiOutlineEdit />{" "}
@@ -37,7 +37,7 @@ function CustomerTableList({ customerData, setCustomerData }) {
               </Tooltip>
               <Tooltip title="Delete" placement="top">
                 <button
-                  className="btn btn-danger btn-sm"
+                  className="px-2 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-700 transition"
                 //   onClick={() => handleClickDelete(product.product_id)}
                 >
                   <MdOutlineDelete />{" "}

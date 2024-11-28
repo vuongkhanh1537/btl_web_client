@@ -104,29 +104,13 @@ function OrderListTable({ orderData, filteredOrderData, setOrderData }) {
             formatDateTime(order.order_time),
             `$ ${Number(order.total).toFixed(2)}`,
             order.payment_method,
-            // _(
-            //   <div className="d-flex align-items-center gap-2">
-            //   <div>{getStatusBadge(order.status)}</div> {/* Status Badge */}
-            //   <select
-            //     value={order.status}
-            //     onChange={(e) => handleStatusChange(order.order_id, e.target.value)}
-            //     className="form-select form-select-sm overflow-hidden"
-            //     style={{ maxWidth: "50px", minWidth: "50px" }}
-            //   >
-            //     <option value="pending">Pending</option>
-            //     <option value="in progress">In Progress</option>
-            //     <option value="delivered">Delivered</option>
-            //     <option value="returned">Returned</option>
-            //     <option value="cancelled">Cancelled</option>
-            //   </select>
-            // </div>
-            // ),
+            
             _(getStatusBadge(order.status)),
             _(
-              <div className="btn-actions">
+              <div className="flex gap-3">
                 <Tooltip title="View" placement="top">
                   <button
-                    className="btn btn-light btn-sm"
+                    className="px-2 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-200 transition"
                     onClick={() => handleClickView(order.order_id)}
                   >
                     <MdOutlineRemoveRedEye />{" "}
@@ -134,7 +118,7 @@ function OrderListTable({ orderData, filteredOrderData, setOrderData }) {
                 </Tooltip>
                 <Tooltip title="Edit" placement="top">
                   <button
-                    className="btn btn-primary btn-sm"
+                    className="px-2 py-2 text-sm bg-orange-500 text-white rounded hover:bg-orange-700 transition"
                     onClick={() => handleClickEdit(order.order_id)}
                   >
                     <AiOutlineEdit />{" "}

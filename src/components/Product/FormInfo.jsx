@@ -128,154 +128,315 @@ function FormInfo({ productData, setProductData, selectedProduct }) {
     setProduct(initialProductState);
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="row">
-        <div className="col-lg-8">
-          <div className="card">
-            <div className="card-header">Details</div>
-            <div className="card-body">
-              <TextInput
-                type="text"
-                name="name_"
-                value={product.name_}
-                label="Product Name"
-                placeholder="Enter product name"
-                handleChange={handleChange}
-                required={true}
-              />
-              <TextInput
-                type="text"
-                name="brand"
-                value={product.brand}
-                label="Brand"
-                placeholder="Enter product brand"
-                handleChange={handleChange}
-                required={true}
-              />
-              <div className="row">
-                <div className="col-lg-6">
-                  <SelectInput
-                    label="Categories"
-                    options={categories}
-                    name="category"
-                    value={product.category}
-                    // onChange={handleCategoryChange}
-                    handleChange={handleChange}
-                    required={true}
-                  />
-                </div>
+    // <form onSubmit={handleSubmit}>
+    //   <div className="row">
+    //     <div className="col-lg-8">
+    //       <div className="card">
+    //         <div className="card-header">Details</div>
+    //         <div className="card-body">
+    //           <TextInput
+    //             type="text"
+    //             name="name_"
+    //             value={product.name_}
+    //             label="Product Name"
+    //             placeholder="Enter product name"
+    //             handleChange={handleChange}
+    //             required={true}
+    //           />
+    //           <TextInput
+    //             type="text"
+    //             name="brand"
+    //             value={product.brand}
+    //             label="Brand"
+    //             placeholder="Enter product brand"
+    //             handleChange={handleChange}
+    //             required={true}
+    //           />
+    //           <div className="row">
+    //             <div className="col-lg-6">
+    //               <SelectInput
+    //                 label="Categories"
+    //                 options={categories}
+    //                 name="category"
+    //                 value={product.category}
+    //                 // onChange={handleCategoryChange}
+    //                 handleChange={handleChange}
+    //                 required={true}
+    //               />
+    //             </div>
 
-                <div className="col-lg-6">
-                  <TextInput
-                    type="number"
-                    name="quantity"
-                    value={product.quantity}
-                    label="Quantity"
-                    placeholder="Enter product quantity"
-                    handleChange={handleChange}
-                    required={true}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
+    //             <div className="col-lg-6">
+    //               <TextInput
+    //                 type="number"
+    //                 name="quantity"
+    //                 value={product.quantity}
+    //                 label="Quantity"
+    //                 placeholder="Enter product quantity"
+    //                 handleChange={handleChange}
+    //                 required={true}
+    //               />
+    //             </div>
+    //           </div>
+    //           <div className="row">
+    //             <div className="col-lg-6">
                   
-                  <TextInput
-                    type="number"
-                    label="Size"
-                    value={product.size_}
-                    name="size_"
-                    handleChange={handleChange}
-                    placeholder="Enter product size"
-                    required={true}
-                  />
-                </div>
+    //               <TextInput
+    //                 type="number"
+    //                 label="Size"
+    //                 value={product.size_}
+    //                 name="size_"
+    //                 handleChange={handleChange}
+    //                 placeholder="Enter product size"
+    //                 required={true}
+    //               />
+    //             </div>
 
-                <div className="col-lg-6">
-                  <TextInput
-                    type="number"
-                    label="Weight"
-                    value={product.weight_}
-                    name="weight_"
-                    handleChange={handleChange}
-                    placeholder="Enter product weight"
-                    required={true}
-                  />
-                </div>
+    //             <div className="col-lg-6">
+    //               <TextInput
+    //                 type="number"
+    //                 label="Weight"
+    //                 value={product.weight_}
+    //                 name="weight_"
+    //                 handleChange={handleChange}
+    //                 placeholder="Enter product weight"
+    //                 required={true}
+    //               />
+    //             </div>
+    //           </div>
+    //           <SelectInput
+    //             label="Color"
+    //             options={colors}
+    //             name="color"
+    //             value={product.color}
+    //             // onChange={handleCategoryChange}
+    //             handleChange={handleChange}
+    //             required={true}
+    //           />
+    //           <div className="mb-3">
+    //             <label className="form-label">Product Description</label>
+    //             <textarea
+    //               className="form-control"
+    //               rows="5"
+    //               name="description_"
+    //               value={product.description_}
+    //               onChange={handleChange}
+    //               required={false}
+    //             ></textarea>
+    //           </div>
+    //         </div>
+    //       </div>
+
+    //       <div className="card mt-4">
+    //         <div className="card-header">Product Gallery</div>
+    //         <div className="card-body">
+    //           <ImgUpload />
+    //         </div>
+    //       </div>
+    //     </div>
+
+    //     <div className="col-lg-4">
+    //       <div className="card">
+    //         <div className="card-header">Pricing</div>
+    //         <div className="card-body">
+    //           <InputGroup
+    //             label="Price"
+    //             prependText="VND"
+    //             type="number"
+    //             placeholder="Enter product price"
+    //             name="price"
+    //             value={product.price}
+    //             handleChange={handleChange}
+    //             required={true}
+    //           />
+    //           {/* <InputGroup
+    //             label="Discount"
+    //             prependText="%"
+    //             type="number"
+    //             placeholder="Enter discount percentage"
+    //             name="discount"
+    //             value={product.discount}
+    //             handleChange={handleChange}
+    //             required={false}
+    //           /> */}
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+
+    //   <div className="create-actions">
+    //     <button type="submit" className="btn btn-success mt-4">
+    //       {selectedProduct ? "Update" : "Create"}
+    //     </button>
+    //     <button
+    //       type="reset"
+    //       className="btn btn-secondary mt-4"
+    //       onClick={handleReset}
+    //     >
+    //       Reset
+    //     </button>
+    //   </div>
+    // </form>
+
+    <form onSubmit={handleSubmit}>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      {/* Left Column (Details) */}
+      <div className="lg:col-span-2">
+        <div className="bg-white shadow rounded-lg mb-4">
+          <div className="bg-gray-200 text-gray-600 p-4 rounded-t-lg border-b">
+            <strong>Details</strong>
+          </div>
+          <div className="p-4">
+            <TextInput
+              type="text"
+              name="name_"
+              value={product.name_}
+              label="Product Name"
+              placeholder="Enter product name"
+              handleChange={handleChange}
+              required={true}
+            />
+            <TextInput
+              type="text"
+              name="brand"
+              value={product.brand}
+              label="Brand"
+              placeholder="Enter product brand"
+              handleChange={handleChange}
+              required={true}
+            />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div>
+                <SelectInput
+                  label="Categories"
+                  options={categories}
+                  name="category"
+                  value={product.category}
+                  handleChange={handleChange}
+                  required={true}
+                />
               </div>
-              <SelectInput
-                label="Color"
-                options={colors}
-                name="color"
-                value={product.color}
-                // onChange={handleCategoryChange}
-                handleChange={handleChange}
-                required={true}
-              />
-              <div className="mb-3">
-                <label className="form-label">Product Description</label>
-                <textarea
-                  className="form-control"
-                  rows="5"
-                  name="description_"
-                  value={product.description_}
-                  onChange={handleChange}
-                  required={false}
-                ></textarea>
+  
+              <div>
+                <TextInput
+                  type="number"
+                  name="quantity"
+                  value={product.quantity}
+                  label="Quantity"
+                  placeholder="Enter product quantity"
+                  handleChange={handleChange}
+                  required={true}
+                />
               </div>
             </div>
-          </div>
-
-          <div className="card mt-4">
-            <div className="card-header">Product Gallery</div>
-            <div className="card-body">
-              <ImgUpload />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div>
+                <TextInput
+                  type="number"
+                  label="Size"
+                  value={product.size_}
+                  name="size_"
+                  handleChange={handleChange}
+                  placeholder="Enter product size"
+                  required={true}
+                />
+              </div>
+  
+              <div>
+                <TextInput
+                  type="number"
+                  label="Weight"
+                  value={product.weight_}
+                  name="weight_"
+                  handleChange={handleChange}
+                  placeholder="Enter product weight"
+                  required={true}
+                />
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div className="col-lg-4">
-          <div className="card">
-            <div className="card-header">Pricing</div>
-            <div className="card-body">
-              <InputGroup
-                label="Price"
-                prependText="VND"
-                type="number"
-                placeholder="Enter product price"
-                name="price"
-                value={product.price}
-                handleChange={handleChange}
-                required={true}
-              />
-              {/* <InputGroup
-                label="Discount"
-                prependText="%"
-                type="number"
-                placeholder="Enter discount percentage"
-                name="discount"
-                value={product.discount}
-                handleChange={handleChange}
+            <SelectInput
+              label="Color"
+              options={colors}
+              name="color"
+              value={product.color}
+              handleChange={handleChange}
+              required={true}
+            />
+            <div className="mb-4">
+              <label className="block text-base font-semibold text-gray-700 mb-2">Product Description</label>
+              <textarea
+                className="w-full p-2 border border-gray-300 rounded-md"
+                rows="5"
+                name="description_"
+                value={product.description_}
+                onChange={handleChange}
                 required={false}
-              /> */}
+                placeholder="Enter product description"
+              ></textarea>
             </div>
           </div>
         </div>
+  
+        {/* Product Gallery */}
+        <div className="bg-white shadow-md rounded-lg mt-4">
+        <div className="bg-gray-200 text-gray-600 p-4 rounded-t-lg border-b">
+            <strong>Product Gallery</strong>
+          </div>
+          <div className="p-4">
+            <ImgUpload />
+          </div>
+        </div>
       </div>
-
-      <div className="create-actions">
-        <button type="submit" className="btn btn-success mt-4">
-          {selectedProduct ? "Update" : "Create"}
-        </button>
-        <button
-          type="reset"
-          className="btn btn-secondary mt-4"
-          onClick={handleReset}
-        >
-          Reset
-        </button>
+  
+      {/* Right Column (Pricing) */}
+      <div className="lg:col-span-1">
+        <div className="bg-white shadow-md rounded-lg mb-4">
+        <div className="bg-gray-200 text-gray-600 p-4 rounded-t-lg border-b">
+            <strong>Pricing</strong>
+          </div>
+          <div className="p-4">
+            <InputGroup
+              label="Price"
+              prependText="VND"
+              type="number"
+              placeholder="Enter product price"
+              name="price"
+              value={product.price}
+              handleChange={handleChange}
+              required={true}
+            />
+            {/* <InputGroup
+              label="Discount"
+              prependText="%"
+              type="number"
+              placeholder="Enter discount percentage"
+              name="discount"
+              value={product.discount}
+              handleChange={handleChange}
+              required={false}
+            /> */}
+          </div>
+        </div>
       </div>
-    </form>
+    </div>
+  
+    {/* Action Buttons */}
+    <div className="flex mt-4 space-x-4 justify-center">
+      <button
+        type="submit"
+        className="bg-green-700 text-white py-2 px-4 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500"
+      >
+        {selectedProduct ? "Update" : "Create"}
+      </button>
+      <button
+        type="reset"
+        className="bg-gray-400 text-white py-2 px-4 rounded-lg hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300"
+        onClick={handleReset}
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+      
   );
 }
 

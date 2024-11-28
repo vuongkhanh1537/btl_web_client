@@ -149,10 +149,10 @@ function TableProductData({ searchTerm, productData, setProductData }) {
         `${Number(product.rating ? product.rating : 0)} ⭐`,
         product.category,
         _(
-          <div className="btn-actions flex space-x-2">
+          <div className="flex space-x-2">
             <Tooltip title="View" placement="top">
               <button
-                className="px-2 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition"
+                className="px-2 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-200 transition"
                 onClick={() => handleClickView(product.product_id)}
               >
                 <MdOutlineRemoveRedEye />{" "}
@@ -160,7 +160,7 @@ function TableProductData({ searchTerm, productData, setProductData }) {
             </Tooltip>
             <Tooltip title="Edit" placement="top">
               <button
-                className="px-2 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                className="px-2 py-2 text-sm bg-orange-500 text-white rounded hover:bg-orange-700 transition"
                 onClick={() => handleClickEdit(product.product_id)}
               >
                 <AiOutlineEdit />{" "}
@@ -168,7 +168,7 @@ function TableProductData({ searchTerm, productData, setProductData }) {
             </Tooltip>
             <Tooltip title="Delete" placement="top">
               <button
-                className="px-2 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition"
+                className="px-2 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-700 transition"
                 onClick={() => handleClickDelete(product.product_id)}
               >
                 <MdOutlineDelete />{" "}

@@ -27,7 +27,7 @@ function EditProduct({ productData, setProductData }) {
           selectedProduct={selectedProduct}
         />
       ) : (
-        <div className="d-flex justify-content-center align-items-center vh-50 text-muted fs-4">
+        <div className="flex justify-center items-center text-xl">
           Product not found
         </div>
       )}

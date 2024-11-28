@@ -61,19 +61,19 @@ function DeleteModal({
     }`}
     tabIndex="-1"
   >
-    <div className="bg-white rounded-lg shadow-lg w-full max-w-md">
+    <div className="bg-white rounded-lg shadow-lg w-full max-w-lg">
       <div className="border-b px-5 py-3 flex justify-between items-center">
-        <h5 className="text-lg font-medium">{title}</h5>
+        <h5 className="text-xl font-semibold">{title}</h5>
         <button
           type="button"
-          className="text-gray-500 hover:text-gray-800 transition"
+          className="text-gray-500 hover:text-gray-800 transition text-2xl"
           aria-label="Close"
           onClick={handleToggleModal}
         >
           &times;
         </button>
       </div>
-      <div className="px-5 py-4">
+      <div className="px-5 py-4 mb-6">
         <p>{body}</p>
       </div>
       <div className="border-t px-5 py-3 flex justify-end space-x-3">

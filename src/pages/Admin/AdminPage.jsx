@@ -25,7 +25,7 @@ import '../../styles/global.css';
 
 function AdminPage() {
   const [productData, setProductData] = useState(initialProductData);
-  const [showSideBar, setShowSideBar] = useState(true);
+  
   const [orderData, setOrderData] = useState(initialOrderData);
   const [customerData, setCustomerData] = useState(initialCustomersData);
   const [promotionData, setPromotionData] = useState(samplePromotionData);
@@ -78,67 +78,25 @@ function AdminPage() {
   }, []);
 
   return (
-    <AdminLayout showSideBar={showSideBar} setShowSideBar={setShowSideBar}>
+    <AdminLayout >
       <Routes>
         <Route path="admin/dashboard" element={<Dashboard />} />
         <Route path="admin/products">
-          <Route
-            path="list"
-            element={
-              <ProductList
-                productData={productData}
-                setProductData={setProductData}
-              />
-            }
-          />
-          <Route
-            path="edit/:id"
-            element={
-              <EditProduct
-                productData={productData}
-                setProductData={setProductData}
-              />
-            }
-          />
-          <Route
-            path="create"
-            element={
-              <CreateProduct
-                productData={productData}
-                setProductData={setProductData}
-              />
-            }
-          />
-          <Route
-            path="detail/:id"
-            element={<ProductDetail productData={productData} />}
-          />
+          <Route path="list" element={ <ProductList productData={productData} setProductData={setProductData} /> } />
+          <Route path="edit/:id" element={ <EditProduct productData={productData} setProductData={setProductData} /> } />
+          <Route path="create" element={ <CreateProduct productData={productData} setProductData={setProductData} /> } />
+          <Route path="detail/:id" element={ <ProductDetail productData={productData} setProductData={setProductData} /> } />
         </Route>
         <Route path="admin/orders">
-          <Route
-            path="list"
-            element={
-              <OrderList orderData={orderData} setOrderData={setOrderData} />
-            }
-          />
-          <Route
-            path="detail/:id"
-            element={<OrderDetail orderData={orderData} />}
-          />
-        </Route>
-        <Route path="admin/customers">
-          <Route
-            path="list"
-            element={<CustomerList customerData={customerData} />}
-          />
+          <Route path="list" element={ <OrderList orderData={orderData} setOrderData={setOrderData} /> } /> 
+          <Route path="detail/:id" element={ <OrderDetail orderData={orderData} setOrderData={setOrderData} /> } /> </Route>
+        <Route path="admin/customers"> 
+         <Route path="list" element={ <CustomerList customerData={customerData} setCustomerData={setCustomerData} /> } />
           <Route path="detail/:id" />
         </Route>
-        <Route path="admin/promotions">
-          <Route
-            path="list"
-            element={<PromotionList promotionData={promotionData} />}
-          />
-          <Route path="detail/:id" />
+        <Route path="admin/promotions"> 
+        <Route path="list" element={ <PromotionList promotionData={promotionData} setPromotionData={setPromotionData} /> } />
+         <Route path="detail/:id" />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
