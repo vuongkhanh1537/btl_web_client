@@ -9,6 +9,7 @@ import ShoppingCartPage from "@/pages/ShoppingCartPage";
 import PaymentPage from "@/pages/PaymentPage";
 import OrderSuccess from "@/pages/OrderSuccess";
 import { AuthProvider } from "@/providers/AuthContext";
+import AdminPage from "@/pages/Admin/AdminPage";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -65,8 +66,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin",
-    element: <div>Admin Page</div>,
+    path: "/*",
+    element: <AdminPage />,
   },
 ]);
 

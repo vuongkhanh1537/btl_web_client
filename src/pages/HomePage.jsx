@@ -6,7 +6,6 @@ import ParallaxImg from '../components/landingPage/ParallaxImg';
 import CategoryDisplay from '../components/landingPage/CategoryDisplay';
 
 const HomePage = () => {
-    const product = products[0];
     return (
         <div>
             <Banner />
