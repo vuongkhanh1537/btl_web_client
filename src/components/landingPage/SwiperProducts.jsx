@@ -1,7 +1,6 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Scrollbar, A11y } from "swiper/modules";
-import { products } from "../../service/sampleData";
 import ProductCard from "./ProductCard";
 
 // Import required Swiper styles
@@ -9,12 +8,15 @@ import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/free-mode';
 
-const RecommendProduct = () => {
+const SwiperProducts = ({
+  title = "Recommend for you",
+  products = []
+}) => {
   return (
     <section className="w-full py-6 md:py-8 lg:py-12">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 md:mb-8">
-          Recommend for you
+          {title}
         </h2>
         
         <Swiper
@@ -80,4 +82,4 @@ const RecommendProduct = () => {
   );
 };
 
-export default RecommendProduct;
+export default SwiperProducts;

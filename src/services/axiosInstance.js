@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost/btl_web_core/api', // Replace with your API base URL
+    baseURL: 'http://localhost/BTL/btl_web_core/api', // Replace with your API base URL
     headers: {
         'Content-Type': 'application/json',
     },

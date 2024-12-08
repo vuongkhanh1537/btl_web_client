@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class AuthService {
-  BASE_URL = "http://localhost/btl_web_core/api";
+  BASE_URL = "http://localhost/BTL/btl_web_core/api";
 
   async login(data) {
     const { email, password } = data;
@@ -16,7 +16,7 @@ class AuthService {
         }
     } 
     const response = await axios.post(`${this.BASE_URL}/login`, data);
-    return response;
+    return response.data;
   }
 
   logout() {

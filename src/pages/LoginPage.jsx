@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
 import { useHome } from "../providers/HomeProvider";
 import { useAuth } from "@/providers/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +7,6 @@ const LoginPage = () => {
   const { darkMode } = useHome();
   const { login, isAuthenticated } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const navigate = useNavigate();
 
@@ -255,8 +253,8 @@ const LoginPage = () => {
                   </label>
                   <div className="mt-1 relative">
                     <input
-                      type={showPassword ? "text" : "password"}
                       name="password"
+                      type="password"
                       value={formData.password}
                       onChange={handleInputChange}
                       className={`block w-full px-3 py-2 border rounded-md shadow-sm 
@@ -268,17 +266,6 @@ const LoginPage = () => {
                         }`}
                       placeholder="••••••••"
                     />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center transition-all duration-300"
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-5 w-5 text-gray-400" />
-                      ) : (
-                        <Eye className="h-5 w-5 text-gray-400" />
-                      )}
-                    </button>
                   </div>
                   {errors.password && (
                     <p className="mt-1 text-sm text-red-500">

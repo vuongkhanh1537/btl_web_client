@@ -1,6 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useHome } from "../providers/HomeProvider";
-import { Moon, Sun, ShoppingCart, User, LogOut, Settings, ScrollText } from "lucide-react";
+import {
+  Moon,
+  Sun,
+  ShoppingCart,
+  User,
+  LogOut,
+  Settings,
+  ScrollText,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,19 +18,20 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/providers/AuthContext";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const Header = () => {
-  const { darkMode, toggleMode } = useHome();
-  const { logout, isAuthenticated, user } = useAuth(); 
+  const { darkMode, toggleMode, cartItems } = useHome();
+  const { logout, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
-  const cartItemCount = 3;
-  
+  const cartItemCount = cartItems.length;
 
   const handleLogout = () => {
     // Xử lý logout
     const res = logout();
     if (res.success) {
-      navigate("/login");}
+      navigate("/login");
+    }
   };
 
   return (
@@ -34,7 +43,7 @@ const Header = () => {
         >
           Strike <span className="text-rose-600">Zone</span>
         </Link>
-        
+
         <nav className="hidden md:flex gap-x-4">
           <Link
             to="/"
@@ -68,15 +77,13 @@ const Header = () => {
           {isAuthenticated ? (
             <>
               {/* Shopping Cart */}
-              <Link 
+              <Link
                 to="/cart"
                 className="relative p-2 rounded-lg text-gray-700 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 transition duration-400 ease-in-out"
               >
                 <ShoppingCart size={20} />
                 {cartItemCount > 0 && (
-                  <Badge 
-                    className="absolute -top-1 -right-1 bg-rose-500 text-white w-5 h-5 flex items-center justify-center rounded-full text-xs"
-                  >
+                  <Badge className="absolute -top-1 -right-1 bg-rose-500 text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">
                     {cartItemCount}
                   </Badge>
                 )}
@@ -85,15 +92,21 @@ const Header = () => {
               {/* User Profile Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-2 p-2 rounded-lg text-gray-700 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 transition duration-400 ease-in-out">
-                  <User size={20} />
                   <span className="font-medium">{user.name}</span>
+                  <Avatar>
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/profile")}>
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/orders")}>
                     <ScrollText className="mr-2 h-4 w-4" />
                     <span>My Order</span>
                   </DropdownMenuItem>

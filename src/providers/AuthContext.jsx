@@ -1,4 +1,4 @@
-import { authService } from '@/service/AuthService';
+import { authService } from '@/services/AuthService';
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
@@ -21,14 +21,19 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await authService.login({ email, password });
+      console.log(response);
+
+      if (response) {
+        // Lưu token và thông tin user
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        localStorage.setItem('isAuthenticated', true);
+        
+        setUser(response.data.user);
+        setIsAuthenticated(true);
+      }
       
-      // Lưu token và thông tin user
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('user', JSON.stringify(response.user));
-      localStorage.setItem('isAuthenticated', true);
       
-      setUser(response.user);
-      setIsAuthenticated(true);
       
 
       return { success: true };

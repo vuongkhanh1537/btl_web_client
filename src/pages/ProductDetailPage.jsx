@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Star, Minus, Plus, ShoppingCart } from 'lucide-react';
 import ProductInfo from '../components/productDetail/ProductInfo';
 import ProductReviews from '../components/productDetail/ProductReview';
+import { useLoaderData, useParams } from 'react-router-dom';
+import { transformProductData } from '@/utils/ProductUtils';
 
-// Giả lập dữ liệu sản phẩm
 const ProductDetailPage = () => {
+  const data = useLoaderData();
+  // console.log(transformProductData(data));
+  
   return (<>
-    <ProductInfo />
+    <ProductInfo productVariants={transformProductData(data)}/>
     <ProductReviews />
   </>);
 }

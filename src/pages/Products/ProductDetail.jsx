@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import productImage from "../../assets/img/giayAdidas.avif";
-import ImageSlider from "../../components/ProductCarousel .jsx";
+import ImageSlider from "../../components/landingPage/ProductCarousel .jsx";
 import { Rating, Tooltip } from "@mui/material";
-import ReviewList from "../../components/ReviewList.jsx";
+import ReviewList from "../../components/landingPage/ReviewList.jsx";
 import PageLayout from "../../Layouts/PageLayout.jsx";
-import ProductCarousel from "../../components/ProductCarousel .jsx";
+import ProductCarousel from "../../components/landingPage/ProductCarousel .jsx";
 import { FaEdit } from "react-icons/fa";
 import { RiPencilFill } from "react-icons/ri";
 

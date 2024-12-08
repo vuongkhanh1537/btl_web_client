@@ -3,6 +3,7 @@ import { Minus, Plus, Trash2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useNavigate } from 'react-router-dom';
 import { useHome } from '@/providers/HomeProvider';
+import { formatCurrency } from '@/utils/CurrencyUtils';
 
 const ShoppingCart = () => {
   const navigate = useNavigate();
@@ -53,8 +54,10 @@ const ShoppingCart = () => {
 
   return (
       <section className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8">Cart</h1>
+        <div className='mb-8'>
+        <h1 className="text-3xl font-bold mb-4">Cart</h1>
         <p className="text-gray-600 mt-2">Review your items</p>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cột trái - Danh sách sản phẩm */}
@@ -69,7 +72,7 @@ const ShoppingCart = () => {
                   {cartItems.map(item => (
                     <div key={item.id} className="p-6 flex items-center">
                       <img 
-                        src={item.image} 
+                        src={item.images[0]} 
                         alt={item.name}
                         className="w-24 h-24 object-cover rounded"
                       />
@@ -80,7 +83,7 @@ const ShoppingCart = () => {
                           Size: {item.size} | Color: {item.color}
                         </p>
                         <div className="mt-2 text-lg font-medium">
-                          {item.price.toLocaleString('vi-VN')}đ
+                          {formatCurrency(item.price)}
                         </div>
                       </div>
 
@@ -115,12 +118,12 @@ const ShoppingCart = () => {
             </div>
           </div>
 
-          {/* Cột phải - Tổng tiền và mã giảm giá */}
+          {/* Total - promo code */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-lg font-bold mb-4">Order Total</h2>
               
-              {/* Mã giảm giá */}
+              {/* promo */}
               <div className="mb-6">
                 <label className="block text-sm font-medium mb-2">
                   Promo code
@@ -151,7 +154,7 @@ const ShoppingCart = () => {
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span>{subtotal.toLocaleString('vi-VN')}đ</span>
+                  <span>{formatCurrency(subtotal)}</span>
                 </div>
                 {discount > 0 && (
                   <div className="flex justify-between text-green-600">
@@ -162,7 +165,7 @@ const ShoppingCart = () => {
                 <div className="border-t pt-3 font-bold text-lg">
                   <div className="flex justify-between">
                     <span>Total:</span>
-                    <span>{totalAmount.toLocaleString('vi-VN')}đ</span>
+                    <span>{formatCurrency(totalAmount)}</span>
                   </div>
                 </div>
               </div>

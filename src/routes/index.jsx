@@ -10,6 +10,9 @@ import PaymentPage from "@/pages/PaymentPage";
 import OrderSuccess from "@/pages/OrderSuccess";
 import { AuthProvider } from "@/providers/AuthContext";
 import AdminPage from "@/pages/Admin/AdminPage";
+import { getProductById } from "@/services/ProductService";
+import UserProfile from "@/pages/Client/UserProfilePage";
+import OrderTrackingPage from "@/pages/Client/OrderTrackingPage";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -36,8 +39,15 @@ const router = createBrowserRouter([
             element: <ProductListPage />,
           },
           {
+            path: "c/:category",
+            element: <ProductListPage />,
+          },
+          {
             path: ":productId",
             element: <ProductDetailPage />,
+            loader: ({ params }) => {
+              return getProductById(params.productId);
+            }
           },
         ],
       },
@@ -63,6 +73,14 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "profile",
+        element: <UserProfile />,
+      },
+      {
+        path: "orders",
+        element: <OrderTrackingPage />
+      }
     ],
   },
   {

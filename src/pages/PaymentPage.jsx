@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CreditCard, Truck, MapPin } from "lucide-react";
-import DeliveryAddress from "@/components/DeliveryAddress";
 import { useNavigate } from "react-router-dom";
 import { useHome } from "@/providers/HomeProvider";
+import DeliveryAddress from "@/components/landingPage/DeliveryAddress";
 
 const PaymentPage = () => {
   const navigate = useNavigate();

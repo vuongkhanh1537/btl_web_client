@@ -1,50 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Star, Minus, Plus, ShoppingCart } from 'lucide-react';
+import { formatCurrency } from '@/utils/CurrencyUtils';
 
-const productVariants = [
-  {
-    productID: "1",
-    name: "Nike Air Max",
-    size: 40,
-    weight: "300g",
-    color: "Black",
-    category: "Running",
-    rating: 4.5,
-    price: 2000000,
-    description: "Nike Air Max với công nghệ đệm khí độc quyền...",
-    quantity: 10,
-  },
-  {
-    productID: "2",
-    name: "Nike Air Max",
-    size: 41,
-    weight: "310g",
-    color: "Black",
-    category: "Running",
-    rating: 4.5,
-    price: 2000000,
-    description: "Nike Air Max với công nghệ đệm khí độc quyền...",
-    quantity: 8,
-  },
-  {
-    productID: "3",
-    name: "Nike Air Max",
-    size: 40,
-    weight: "300g",
-    color: "White",
-    category: "Running",
-    rating: 4.5,
-    price: 2000000,
-    description: "Nike Air Max với công nghệ đệm khí độc quyền...",
-    quantity: 5,
-  },
-];
-
-const ProductInfo = () => {
+const ProductInfo = ({
+  productVariants = productVariants1,
+}) => {
   const [selectedVariant, setSelectedVariant] = useState(productVariants[0]);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(productVariants[0].size);
   const [selectedColor, setSelectedColor] = useState(productVariants[0].color);
+  const [selectedImage, setSelectedImage] = useState(productVariants[0].images[0]);
 
   // Lấy các size và color có sẵn
   const availableSizes = [
@@ -63,6 +28,8 @@ const ProductInfo = () => {
     if (newVariant) {
       setSelectedVariant(newVariant);
       setSelectedQuantity(1);
+      // Reset to first image of new variant
+      setSelectedImage(newVariant.images[0]);
     }
   }, [selectedSize, selectedColor]);
 
@@ -93,12 +60,35 @@ const ProductInfo = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Ảnh sản phẩm */}
-        <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-          <img
-            src="/api/placeholder/700/700"
-            alt={selectedVariant.name}
-            className="w-full h-full object-cover"
-          />
+        <div>
+          <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4">
+            <img
+              src={selectedImage}
+              alt={selectedVariant.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          
+          {/* Thumbnail images */}
+          <div className="grid grid-cols-5 gap-2">
+            {selectedVariant.images.map((image, index) => (
+              <button
+                key={index}
+                className={`aspect-square rounded-lg overflow-hidden border-2 ${
+                  selectedImage === image 
+                    ? 'border-gray-900' 
+                    : 'border-transparent hover:border-gray-300'
+                }`}
+                onClick={() => setSelectedImage(image)}
+              >
+                <img
+                  src={image}
+                  alt={`${selectedVariant.name} thumbnail ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Thông tin sản phẩm */}
@@ -115,7 +105,7 @@ const ProductInfo = () => {
           </div>
 
           <div className="text-2xl font-bold text-gray-900">
-            {selectedVariant.price.toLocaleString("vi-VN")} đ
+            {formatCurrency(selectedVariant.price)}
           </div>
 
           {/* Chọn size */}

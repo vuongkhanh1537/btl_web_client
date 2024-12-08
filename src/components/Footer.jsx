@@ -3,7 +3,7 @@ import { FacebookIcon, InstagramIcon, LinkedInIcon, YoutubeIcon } from "../asset
 const Footer = () => {
   return (
     <div className="mx-auto container py-12 xl:px-6 lg:px-6 sm:px-6 px-4">
-      <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 md:gap-8 gap-4 justify-items-center">
+      <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 md:gap-8 gap-4 justify-items-left pl-4 sm:pl-32 lg:pl-0">
         <div className="flex flex-col flex-shrink-1">
           <div className="
           font-medium text-rose-500 text-ellipsis text-lg
