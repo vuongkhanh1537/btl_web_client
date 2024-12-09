@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Toast, ToastContainer } from "react-bootstrap";
+
 import TextInput from "../FormInput/TextInput";
 import InputGroup from "../FormInput/InputGroup";
 
@@ -71,7 +71,7 @@ function PromotionModal({
 
   return (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-end"
         style={{ position: "fixed", marginTop: "30px", marginRight: "30px" }}
       >
@@ -88,90 +88,8 @@ function PromotionModal({
           </Toast.Header>
           <Toast.Body className="text-white">{title} successfully!</Toast.Body>
         </Toast>
-      </ToastContainer>
-      {/* <form onSubmit={ handleClickConfirm}>
-      <div className={`modal ${showModal ? "show" : ""}`} tabIndex="-1">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">{title}</h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                onClick={handleToggleModal}
-              ></button>
-            </div>
-            <div className="modal-body">
-              
-                <TextInput
-                  type="text"
-                  name="name_"
-                  value={promotion.name_}
-                  label="Code Name"
-                  placeholder="Code Name"
-                  handleChange={handleChange}
-                  required
-                />
-
-                <div className="row">
-                  <div className="col-sm-6">
-                    
-                    <TextInput
-                      type="date"
-                      name="start_date"
-                      value={promotion.start_date}
-                      label="Start Date"
-                      placeholder="Start Date"
-                      handleChange={handleChange}
-                      required={true}
-                    />
-                  </div>
-                  <div className="col-sm-6">
-                    
-                    <TextInput
-                      type="date"
-                      name="end_date"
-                      value={promotion.end_date}
-                      label="End Date"
-                      placeholder="End Date"
-                      handleChange={handleChange}
-                      required={true}
-                    />
-                  </div>
-                </div>
-
-                
-                <InputGroup
-                  label="Value"
-                  prependText="%"
-                  type="number"
-                  name="promo_value"
-                  value={promotion.promo_value}
-                  placeholder="Value"
-                  handleChange={handleChange}
-                  required={true}
-                />
-              
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-                onClick={handleToggleModal}
-              >
-                {close}
-              </button>
-              <button type="submit" className="btn btn-primary">
-                {confirm}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </form> */}
+      </ToastContainer> */}
+      
       <form onSubmit={handleClickConfirm}>
   <div
     className={`fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center ${

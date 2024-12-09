@@ -1,4 +1,4 @@
-function TextInput({type, name, value='', label, placeholder, handleChange, required}) {
+function TextInput({className, type, name, value='', label, placeholder, handleChange, required}) {
   return (
     
     // <div className="mb-3">
@@ -25,6 +25,7 @@ function TextInput({type, name, value='', label, placeholder, handleChange, requ
     placeholder={placeholder}
     onChange={handleChange}
     required={required}
+    
   />
 </div>
 

@@ -1,4 +1,4 @@
-import PromotionTableList from "../../components/Promotion/PromotionTableList";
+import PromotionTableList from "../../components/Tables/PromotionTableList";
 import PageLayout from "../../Layouts/PageLayout";
 
 function PromotionList({ promotionData, setPromotionData }) {

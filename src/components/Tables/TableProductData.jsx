@@ -10,11 +10,21 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import { deleteProduct } from "../../services/ProductService";
 
+
+function getFirstImage(imagesURL) {
+  if(imagesURL){
+    const images = imagesURL.split(";");
+    return images[0];
+  }
+  return null;
+}
 function TableProductData({ searchTerm, productData, setProductData }) {
   // const filteredData = productData.filter((product) =>
   //   product.name.toLowerCase().includes(searchTerm.toLowerCase())
   // );
 
+
+  
   const [showModal, setShowModal] = useState(false);
 
   const [selectedProductId, setSelectedProductId] = useState("");
@@ -41,14 +51,8 @@ function TableProductData({ searchTerm, productData, setProductData }) {
   async function handleDeleteProduct() {
     const response = await deleteProduct(selectedProductId);
 
-    if (!response.ok) {
-      // const errorData = await response.json();
-      const errorData = await response.json(); // Ensure to extract JSON message
-      throw new Error(
-        `Failed to delete product: ${errorData.message || response.statusText}`
-      );
-    }
 
+    alert("Product delete successfully");
     const updatedProducts = productData.filter(
       (product) => product.product_id !== selectedProductId
     );
@@ -56,76 +60,6 @@ function TableProductData({ searchTerm, productData, setProductData }) {
   }
 
   return (
-    // <>
-    //   <Modal
-    //     showModal={showModal}
-    //     handleToggleModal={handleToggleModal}
-    //     handleConfirm={handleDeleteProduct}
-    //     title="Confirm Delete"
-    //     body="Are you sure you want to delete this product?"
-    //     close="Cancel"
-    //     confirm="Confirm"
-    //   />
-    //   <div className="table-body">
-    //     <Grid
-    //       data={productData.map((product) => [
-    //         product.product_id,
-    //         product.name_,
-    //         product.quantity,
-    //         `$ ${Number(product.price).toFixed(2)}`,
-    //         `${Number(product.rating ? product.rating : 0)} ⭐`,
-    //         product.category,
-    //         _(
-    //           <div className="btn-actions">
-    //             <Tooltip title="View" placement="top">
-    //               <button
-    //                 className="btn btn-light btn-sm"
-    //                 onClick={() => handleClickView(product.product_id)}
-    //               >
-    //                 <MdOutlineRemoveRedEye />{" "}
-    //               </button>
-    //             </Tooltip>
-    //             <Tooltip title="Edit" placement="top">
-    //               <button
-    //                 className="btn btn-primary btn-sm"
-    //                 onClick={() => handleClickEdit(product.product_id)}
-    //               >
-    //                 <AiOutlineEdit />{" "}
-    //               </button>
-    //             </Tooltip>
-    //             <Tooltip title="Delete" placement="top">
-    //               <button
-    //                 className="btn btn-danger btn-sm"
-    //                 onClick={() => handleClickDelete(product.product_id)}
-    //               >
-    //                 <MdOutlineDelete />{" "}
-    //               </button>
-    //             </Tooltip>
-    //           </div>
-    //         ),
-    //       ])}
-    //       columns={[
-    //         "ID",
-    //         "Product Name",
-    //         "Stock",
-    //         "Price",
-    //         "Rating",
-    //         "Category",
-    //         "Actions",
-    //       ]}
-    //       search={true}
-    //       sort={true}
-    //       fixedHeader={true}
-    //       pagination={{
-    //         enabled: true,
-    //         limit: 5,
-    //       }}
-    //       style={{
-    //         border: "none",
-    //       }}
-    //     />
-    //   </div>
-    // </>
     <>
   {/* Modal Component */}
   <Modal
@@ -143,7 +77,18 @@ function TableProductData({ searchTerm, productData, setProductData }) {
     <Grid
       data={productData.map((product) => [
         product.product_id,
-        product.name_,
+        _(
+          <div className="-ml-6 flex gap-2" >
+            <img
+              src={getFirstImage(product.image) }
+              alt="Product"
+              className=" rounded-lg w-20 h-20"
+            ></img>
+            <div className="flex items-center">{product.name} </div>
+            
+          </div>
+        ),
+        
         product.quantity,
         `$ ${Number(product.price).toFixed(2)}`,
         `${Number(product.rating ? product.rating : 0)} ⭐`,
@@ -179,7 +124,11 @@ function TableProductData({ searchTerm, productData, setProductData }) {
       ])}
       columns={[
         "ID",
-        "Product Name",
+        // "Product Name",
+        {
+          name: "Product Name",
+          width: "25%",
+        },
         "Stock",
         "Price",
         "Rating",

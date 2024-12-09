@@ -1,4 +1,4 @@
-import CustomerTableList from "../../components/Customer/CustomerTableList";
+import CustomerTableList from "../../components/Tables/CustomerTableList";
 import PageLayout from "../../Layouts/PageLayout";
 
 function CustomerList({ customerData, setCustomerData }) {

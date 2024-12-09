@@ -7,7 +7,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
-import getStatusBadge from "../../utils/getStatusBadge";
+import {getStatusBadge }from "../../utils/getStatusBadge";
 import EditModal from "../Modal/EditOrderModal";
 
 import { formatDateTime } from "../../utils/formatDateTime";
@@ -74,6 +74,7 @@ function OrderListTable({ orderData, filteredOrderData, setOrderData }) {
     
   }
   // console.log(orderData);
+  
   return (
     <>
       {/* <Modal
@@ -100,12 +101,12 @@ function OrderListTable({ orderData, filteredOrderData, setOrderData }) {
         <Grid
           data={filteredOrderData.map((order) => [
             order.order_id,
-            order.customer_id,
+            order.user_id,
             formatDateTime(order.order_time),
-            `$ ${Number(order.total).toFixed(2)}`,
+            `$ ${Number(order.total_payment).toFixed(2)}`,
             order.payment_method,
             
-            _(getStatusBadge(order.status)),
+            _(getStatusBadge(order.status_)),
             _(
               <div className="flex gap-3">
                 <Tooltip title="View" placement="top">
