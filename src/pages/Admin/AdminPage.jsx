@@ -20,6 +20,9 @@ import { fetchOrdersData } from "../../services/OrderService";
 import { useEffect, useState } from "react";
 import AdminLayout from "../../Layouts/AdminLayout";
 import "../../styles/global.css";
+import { fetchCustomersData } from "../../services/CustomerService";
+import PageLayout from "../../Layouts/PageLayout";
+import { fetchPromotionData } from "../../services/PromotionService";
 
 const access_token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoiZXhwIiwicm9sZSI6Im1hbmFnZXIifQ.QFveAqZbNLkKOkHBpOKgy9yp2ocUKd9jJgfonZSck50";
@@ -30,9 +33,12 @@ function AdminPage() {
   const [orderData, setOrderData] = useState(initialOrderData);
   const [customerData, setCustomerData] = useState(initialCustomersData);
   const [promotionData, setPromotionData] = useState(samplePromotionData);
+  const [isLoading, setIsLoading] = useState(false);
+  
 
   async function fetchProducts() {
     try {
+      setIsLoading(true);
       const data = await fetchProductData();
       const standardizedData = data.map((item) => ({
         product_id: item.id,
@@ -51,6 +57,8 @@ function AdminPage() {
       setProductData(standardizedData);
     } catch (error) {
       console.error("Error fetching products:", error);
+    }finally{
+      setIsLoading(false);
     }
   }
 
@@ -78,13 +86,45 @@ function AdminPage() {
     }
   }
 
+  async function fetchCustomers() {
+    try {
+      const data = await fetchCustomersData();
+      console.log(data);
+      setCustomerData(data);
+    } catch (error) {
+      console.error("Error fetching customers:", error);
+    }
+  }
+
+  async function fetchPromotions(){
+    try {
+      const data = await fetchPromotionData();
+      setPromotionData(data);
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
   useEffect(() => {
     fetchProducts();
     fetchOrders();
-
-    localStorage.setItem("access_token", access_token);
+    fetchCustomers();
+    fetchPromotions();
+    // localStorage.setItem("access_token", access_token);
   }, []);
 
+
+  // if(isLoading){
+  //   return (
+  //     <AdminLayout>
+  //     <PageLayout pageTitle="Dashboard">
+  //       <div className="flex justify-center items-center h-screen">
+  //         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-700"></div>
+  //       </div>
+  //     </PageLayout>
+  //     </AdminLayout>
+  //   );
+  // }
   return (
     <AdminLayout>
       <Routes>

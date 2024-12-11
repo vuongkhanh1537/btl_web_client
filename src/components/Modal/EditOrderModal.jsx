@@ -22,7 +22,7 @@ function EditModal({
 
   useEffect(() =>{
     if(selectedOrder) {
-      setOrderStatus(selectedOrder.status);
+      setOrderStatus(selectedOrder.status_);
       setPaymentStatus(selectedOrder.payment_status);
     }
   },[selectedOrder]);
@@ -30,7 +30,7 @@ function EditModal({
   
   function handleChange(e){
     const {name, value} = e.target;
-    if(name === 'status'){
+    if(name === 'status_'){
       setOrderStatus(value);
     }
     if(name === 'payment_status'){
@@ -42,7 +42,7 @@ function EditModal({
   
   
   function handleClickConfirm() {
-    const updatedOrder = {...selectedOrder, status: orderStatus, payment_status: paymentStatus};
+    const updatedOrder = {...selectedOrder, status_: orderStatus, payment_status: paymentStatus};
     handleEditConfirm(updatedOrder);
     setShowToast(true); // Trigger the toast
     handleToggleModal();
@@ -85,7 +85,7 @@ function EditModal({
       <SelectInput
         label="Order Status"
         options={statusOptions}
-        name="status"
+        name="status_"
         value={orderStatus}
         handleChange={handleChange}
       />

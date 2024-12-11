@@ -11,6 +11,8 @@ import {getStatusBadge }from "../../utils/getStatusBadge";
 import EditModal from "../Modal/EditOrderModal";
 
 import { formatDateTime } from "../../utils/formatDateTime";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { updateOrder } from "../../services/OrderService";
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.min.css';
 // import 'react-toastify/dist/ReactToastify.css';
@@ -43,29 +45,10 @@ function OrderListTable({ orderData, filteredOrderData, setOrderData }) {
     handleToggleEditModal();
   }
 
-  // function handleClickDelete(id) {
 
-  //   setSelectedOrderId(id);
-  //   console.log(selectedOrderId);
-  //   handleToggleEditModal();
-
-  // }
-
-  // function handleDeleteOrder() {
-  //   const updatedOrders = orderData.filter(
-  //     (order) => order.order_id !== selectedOrderId
-  //   );
-  //   setOrderData(updatedOrders);
-  // }
-
-  // function handleStatusChange(orderId, newStatus) {
-  //   const updatedOrders = orderData.map((order) =>
-  //     order.order_id === orderId ? { ...order, status: newStatus } : order
-  //   );
-  //   setOrderData(updatedOrders); // Update the state with the modified order data
-  // }
-
-  function handleSaveEdit(updatedOrder) {
+  async function handleSaveEdit(updatedOrder) {
+    const response = await updateOrder(updatedOrder.order_id, updatedOrder.status_, updatedOrder.payment_status);
+    console.log(response);
     const updatedOrders = orderData.map((order) =>
       order.order_id === updatedOrder.order_id ? updatedOrder : order
     );
@@ -103,7 +86,8 @@ function OrderListTable({ orderData, filteredOrderData, setOrderData }) {
             order.order_id,
             order.user_id,
             formatDateTime(order.order_time),
-            `$ ${Number(order.total_payment).toFixed(2)}`,
+            // `$ ${Number(order.total_payment).toFixed(2)}`,
+            formatCurrency(Number( order.total_payment)/1000),
             order.payment_method,
             
             _(getStatusBadge(order.status_)),

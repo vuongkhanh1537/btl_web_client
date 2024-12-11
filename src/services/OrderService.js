@@ -32,3 +32,14 @@ export const getOrderById = async (id) => {
   }
 };
 
+
+export const updateOrder = async (id, status_, payment_status) => {
+  try {
+    const response = await axios.put(`http://localhost/btl_web_core/api/dashboard/orders/${id}`, {status_, payment_status});
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error; // Propagate the error for handling in the calling component
+  }
+};

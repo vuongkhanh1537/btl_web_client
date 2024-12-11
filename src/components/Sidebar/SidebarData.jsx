@@ -77,11 +77,11 @@ const SidebarData = [
           path: 'admin/customers/list',
           icon: <FaShoppingCart/>
         },
-        {
-          title: 'Details',
-          path: 'admin/customers/detail',
-          icon: <FaShoppingCart />
-        }
+        // {
+        //   title: 'Details',
+        //   path: 'admin/customers/detail',
+        //   icon: <FaShoppingCart />
+        // }
       ]
     },
     {
@@ -98,11 +98,11 @@ const SidebarData = [
           path: 'admin/promotions/list',
           icon: <FaShoppingCart/>
         },
-        {
-          title: 'Details',
-          path: 'admin/promotions/detail',
-          icon: <FaShoppingCart />
-        }
+        // {
+        //   title: 'Details',
+        //   path: 'admin/promotions/detail',
+        //   icon: <FaShoppingCart />
+        // }
       ]
     },
     

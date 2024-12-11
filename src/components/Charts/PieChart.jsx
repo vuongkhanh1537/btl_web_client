@@ -1,10 +1,15 @@
 import React from "react";
 import Chart from "react-apexcharts";
+import {formatCurrency} from "../../utils/formatCurrency";
+const PieChart = ({data}) => {
+  
+  const labels = data.map(item => item.category); 
+  const series = data.map(item => parseFloat(item.revenue)); 
 
-const PieChart = () => {
+  console.log(labels, series);
   // Chart configuration
   const options = {
-    labels: ["Men", "Women", "Sport", "Casual", "Formal"],
+    labels: labels,
     legend: {
       position: "bottom",
       horizontalAlign: "center", // Center-align the legend horizontally
@@ -27,10 +32,15 @@ const PieChart = () => {
           fontWeight: "bold",
         },
       },
+    tooltip: {
+      y: {
+        formatter: (val) => formatCurrency(val), // Format tooltip values as sales in 'K'
+      },
+    },
   };
 
   // Data for the pie chart
-  const series = [44, 55, 13, 43, 22]; // Data corresponding to labels
+  // const series = [44, 55, 13, 43, 22]; // Data corresponding to labels
 
   return (
     <div>

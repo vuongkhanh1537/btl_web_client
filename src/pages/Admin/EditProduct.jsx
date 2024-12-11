@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import FormInfo from "../../Forms/FormInfo";
+import FormInfo from "./FormInfo";
 import PageLayout from "../../Layouts/PageLayout";
 import { useEffect, useState } from "react";
 import { getProductById } from "../../services/ProductService";

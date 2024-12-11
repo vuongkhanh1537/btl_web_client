@@ -117,6 +117,7 @@ export const addProduct = async (product) => {
   try {
     console.log(product);
     const response = await axios.post(apiURL, product);
+    console.log(response);
     return response.data; // Return the newly added product or response data
   } catch (error) {
     console.error(

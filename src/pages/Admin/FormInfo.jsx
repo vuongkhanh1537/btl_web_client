@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import ImgUpload from "../components/FormInput/ImgUpload";
-import InputGroup from "../components/FormInput/InputGroup";
-import SelectInput from "../components/FormInput/SelectInput";
-import TextInput from "../components/FormInput/TextInput";
+import ImgUpload from "../../components/FormInput/ImgUpload";
+import InputGroup from "../../components/FormInput/InputGroup";
+import SelectInput from "../../components/FormInput/SelectInput";
+import TextInput from "../../components/FormInput/TextInput";
 import { useNavigate } from "react-router-dom";
-import { addProduct, updateProduct } from "../services/ProductService";
-import { colors, categories } from "../utils/selectOptions";
+import { addProduct, updateProduct } from "../../services/ProductService";
+import { colors, categories } from "../../utils/selectOptions";
 // const categories = [
 //   { value: "Casual Wear", label: "Casual Wear" },
 //   { value: "Formal Wear", label: "Formal Wear" },
@@ -38,7 +38,7 @@ const initialProductState = {
 function FormInfo({ productData, setProductData, selectedProduct }) {
   const [product, setProduct] = useState(initialProductState);
 
-  console.log("Selected Product:", selectedProduct);
+  
   const navigate = useNavigate();
   useEffect(() => {
     if (selectedProduct) {
@@ -57,27 +57,7 @@ function FormInfo({ productData, setProductData, selectedProduct }) {
     navigate(path);
     window.scrollTo(0, 0);
   }
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-
-  //   // Update the product if selectedProduct exists, otherwise add new product
-  //   if (selectedProduct) {
-  //     const updatedProducts = productData.map((item) =>
-  //       item.id === selectedProduct.id
-  //         ? { ...product, id: selectedProduct.id }
-  //         : item
-  //     );
-  //     setProductData(updatedProducts);
-  //     alert("Product updated successfully");
-  //   } else {
-  //     setProductData([...productData, { ...product, id: Date.now() }]);
-  //     alert("Product added successfully");
-  //   }
-
-  //   setProduct(initialProductState);
-  //   console.log(product);
-  //   handleNavigate("/products/list");
-  // }
+ 
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -96,24 +76,25 @@ function FormInfo({ productData, setProductData, selectedProduct }) {
         );
         setProductData(updatedProducts);
         alert("Product updated successfully");
+        
       } else {
         console.log("submit: ", product);
 
         // Add new product to database
 
         const response = await addProduct(product);
-        // console.log( response,response.id);
-        const newProduct = { ...product, product_id: response.id };
+        console.log(response);
+        const newProduct = { ...product, product_id: response.data.product_id, image: response.data.image_path };
         console.log(newProduct);
         // Add the new product to the start of productData
         setProductData((productData) => [newProduct, ...productData]);
 
         alert("Product added successfully");
-
+        handleNavigate("/admin/products/list");
         // setProduct(initialProductState);
       }
 
-      // handleNavigate("/admin/products/list");
+      
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred: " + error.message);

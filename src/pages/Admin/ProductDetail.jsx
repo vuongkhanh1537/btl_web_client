@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import productImage from "../../assets/img/giayAdidas.avif";
 
 import { Rating, Tooltip } from "@mui/material";
-import ReviewList from "../../components/ReviewList.jsx";
+import ReviewList from "../../components/Product/ReviewList.jsx";
 import PageLayout from "../../Layouts/PageLayout.jsx";
 import ProductCarousel from "../../components/Product/ProductCarousel .jsx";
 import { FaEdit } from "react-icons/fa";

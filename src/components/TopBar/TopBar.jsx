@@ -63,11 +63,11 @@ function TopBar({ showSideBar, setShowSideBar }) {
         >
           <FaBars size={24} />
         </button>
-        <input
+        {/* <input
           className="form-control p-2 rounded-md"
           type="text"
           placeholder="Search"
-        />
+        /> */}
       </div>
 
       {/* Right Section: Notifications, Dark Mode, Avatar */}

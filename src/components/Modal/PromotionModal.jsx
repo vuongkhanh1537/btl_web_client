@@ -2,16 +2,14 @@ import { useEffect, useState } from "react";
 
 import TextInput from "../FormInput/TextInput";
 import InputGroup from "../FormInput/InputGroup";
+import { addPromotion, updatePromotion } from "../../services/PromotionService";
 
 const initialPromotionState = {
-  code_id: "",
   name_: "",
   start_date: "",
   end_date: "",
-  min_order: 0.0,
-  maximum_promo: 0.0,
   promo_value: 0.0,
-  init_quantity: 0,
+  
 };
 function PromotionModal({
   selectedPromotionID,
@@ -32,6 +30,7 @@ function PromotionModal({
       const selectedPromotion = promotionData.find(
         (promotion) => promotion.code_id === selectedPromotionID
       );
+      console.log(selectedPromotion);
       setPromotion(selectedPromotion);
     } else {
       setPromotion(initialPromotionState);
@@ -48,24 +47,30 @@ function PromotionModal({
     }));
   }
 
-  function handleClickConfirm(e) {
+  async function handleClickConfirm(e) {
     e.preventDefault();
     if (selectedPromotionID) {
       // Update the promotion
-
+      const response = await updatePromotion(selectedPromotionID, promotion);
+      console.log(response);
       const updatedPromotions = promotionData.map((item) =>
         item.code_id === selectedPromotionID ? promotion : item
       );
       setPromotionData(updatedPromotions);
       setShowToast(true); // Trigger the toast
+      alert("Promotion updated successfully");
       handleToggleModal();
     } else {
       // Add new promotion
-
+      
+      const response = await addPromotion(promotion);
+      
       const newPromotion = { ...promotion, code_id: Date.now() };
       setPromotionData([...promotionData, newPromotion]);
       setShowToast(true); // Trigger the toast
-      setPromotion(initialPromotionState);
+      // setPromotion(initialPromotionState);
+      alert("Promotion added successfully");
+
     }
   }
 
