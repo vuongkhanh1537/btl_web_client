@@ -32,12 +32,12 @@ function Dashboard() {
   const [totalOrderCompleted, setTotalOrderCompleted] = useState(0);
   
   const [revenueByCategory, setRevenueByCategory] = useState([]);
-  const [revenueByMonth, setRevenueByMonth] = useState([]);
+  
   const [topProducts, setTopProducts] = useState([]);
   const [numofCustomers, setNumofCustomers] = useState(0);
 
 
-  const [year, setYear] = useState('2024');
+  
   const [startDate, setStartDate] = useState('2024-01-01');
   const [endDate, setEndDate] = useState('2024-12-31');
 
@@ -53,8 +53,7 @@ function Dashboard() {
       
       const response5 = await fetchRevenueByCategory(startDate, endDate);
       setRevenueByCategory(response5);
-      const response6 = await fetchRevenueMonthly(year);
-      setRevenueByMonth(response6);
+    
       const response7 = await fetchTopProducts(startDate, endDate);
       setTopProducts(response7);
 
@@ -74,40 +73,7 @@ function Dashboard() {
     fetchData();
   }
 
-  const bestSellingProducts = [
-    {
-      product_id: 1,
-      name_: "Product 1",
-      price: 100,
-      sales: 50,
-      quantity: 10,
-      amount: 5000,
-    },
-    {
-      product_id: 2,
-      name_: "Product 2",
-      price: 75,
-      sales: 30,
-      quantity: 5,
-      amount: 3750,
-    },
-    {
-      product_id: 3,
-      name_: "Product 3",
-      price: 80,
-      sales: 40,
-      quantity: 8,
-      amount: 4000,
-    },
-    {
-      product_id: 4,
-      name_: "Product 4",
-      price: 90,
-      sales: 45,
-      quantity: 12,
-      amount: 4500,
-    },
-  ];
+
 
   if(loading){
     return(
@@ -242,7 +208,7 @@ function Dashboard() {
           <div className="w-full lg:w-1/2 px-4">
             {/* <input type="date" value={selectedDate} onChange={handleDateChange} /> */}
             {/* <DonutChart /> */}
-            <ColumnChart data={revenueByMonth} />
+            <ColumnChart />
 
           </div>
         </div>

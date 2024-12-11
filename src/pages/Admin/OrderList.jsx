@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 import TextInput from "../../components/FormInput/TextInput";
 import SelectInput from "../../components/FormInput/SelectInput";
 import { paymentOptions, statusOptions } from "../../utils/selectOptions";
+import initialOrderData from "../../datas/OrderData";
+import { fetchOrdersData } from "../../services/OrderService";
 
 // const initialFilter = {};
-function OrderList({ orderData, setOrderData }) {
+function OrderList() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [orderData, setOrderData] = useState([]);
   const [filteredOrderData, setFilteredOrderData] = useState(orderData);
   const [filters, setFilters] = useState({
     status: "",
@@ -15,6 +19,35 @@ function OrderList({ orderData, setOrderData }) {
     endDate: "",
   });
 
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        setIsLoading(true);
+        const data = await fetchOrdersData();
+        const standardizedData = data.map((item) => ({
+          order_id: item.order_id,
+          order_time: item.order_time,
+          ship_fee: item.ship_fee,
+          payment_method: item.payment_method,
+          payment_status: item.payment_status,
+          payment_time: item.payment_time,
+          status_: item.status_,
+          address_: item.address_,
+          user_id: item.user_id,
+          promotion_code_id: item.promotion_code_id,
+          total_payment: item.total_payment,
+          discount: item.discount,
+        }));
+  
+        setOrderData(standardizedData);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }finally {
+        setIsLoading(false);
+      }
+    }
+    fetchOrders();
+  },[])
   useEffect(() => {
     setFilteredOrderData(orderData);
   }, [orderData]);
@@ -63,6 +96,13 @@ function OrderList({ orderData, setOrderData }) {
     });
     setFilteredOrderData(orderData);
   }
+
+  if(isLoading || orderData.length === 0){
+    return <div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-"></div>
+    </div>
+  }
+
   return (
     <PageLayout pageTitle="Orders List">
       <div className="table-list">

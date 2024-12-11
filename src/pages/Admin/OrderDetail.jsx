@@ -8,7 +8,7 @@ import OrderTable from "../../components/Tables/OrderTable";
 import { RiMapPinLine } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { getOrderById } from "../../services/OrderService";
-function OrderDetail({ orderData, setOrderData }) {
+function OrderDetail() {
   const { id } = useParams();
   console.log("id: ", id);
 

@@ -49,11 +49,13 @@ function OrderListTable({ orderData, filteredOrderData, setOrderData }) {
   async function handleSaveEdit(updatedOrder) {
     const response = await updateOrder(updatedOrder.order_id, updatedOrder.status_, updatedOrder.payment_status);
     console.log(response);
+    
     const updatedOrders = orderData.map((order) =>
       order.order_id === updatedOrder.order_id ? updatedOrder : order
     );
     setOrderData(updatedOrders);
     // toast.success("Order updated successfully!");
+    alert("Order updated successfully!");
     
   }
   // console.log(orderData);
