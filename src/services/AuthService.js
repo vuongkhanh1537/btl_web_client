@@ -19,12 +19,9 @@ class AuthService {
     return response.data;
   }
 
-  logout() {
-    this.authenticated = false;
-  }
-
-  isAuthenticated() {
-    return this.authenticated;
+  async register(data) {
+    const response = await axios.post(`${this.BASE_URL}/signup`, data);
+    return response.data;
   }
 }
 

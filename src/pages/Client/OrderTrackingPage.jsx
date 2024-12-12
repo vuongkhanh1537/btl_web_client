@@ -3,31 +3,28 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Star } from 'lucide-react';
+import { useLoaderData } from 'react-router-dom';
 
 const OrderTrackingPage = () => {
-  const [orders, setOrders] = useState([
-    {
-      id: 'ORD-001',
-      date: '2024-05-15',
-      status: 'Completed',
-      items: [
-        { name: 'Wireless Headphones', quantity: 1, price: 129.99 },
-        { name: 'Laptop Stand', quantity: 1, price: 49.99 }
-      ],
-      total: 179.98,
-      comment: null
-    },
-    {
-      id: 'ORD-002',
-      date: '2024-05-10',
-      status: 'Shipped',
-      items: [
-        { name: 'Smart Watch', quantity: 1, price: 199.99 }
-      ],
-      total: 199.99,
-      comment: null
-    }
-  ]);
+  const data = useLoaderData();
+  console.log(data.data);
+
+
+
+  const dataLoader = data?.data?.orders?.orders.map(order => ({
+    id: order.order_id,
+    date: order.order_time,
+    status: order.status,
+    items: order.items.map(item => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price
+    })),
+    total: order.total_price,
+    comment: null
+  })) || [];
+  
+  const [orders, setOrders] = useState(dataLoader);
 
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [newComment, setNewComment] = useState('');

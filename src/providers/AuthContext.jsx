@@ -32,9 +32,6 @@ export const AuthProvider = ({ children }) => {
         setUser(response.data.user);
         setIsAuthenticated(true);
       }
-      
-      
-      
 
       return { success: true };
     } catch (error) {
@@ -43,8 +40,30 @@ export const AuthProvider = ({ children }) => {
         error: error.message
       };
     }
-
   };
+
+  const register = async (data) => {
+    try {
+      const response = await authService.register(data);
+      console.log(response);
+
+      if (response) {
+        // Lưu token và thông tin user
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        localStorage.setItem('isAuthenticated', true);
+        
+        setUser(response.data.user);
+        setIsAuthenticated(true);
+      }
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message
+      };
+    }
+  }
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -60,6 +79,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     login,
+    register,
     logout,
     isAuthenticated
   };

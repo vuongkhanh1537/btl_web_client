@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Upload, User, Mail, Lock, Calendar } from "lucide-react";
 import { useAuth } from "@/providers/AuthContext";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const UserProfile = () => {
   const { user } = useAuth();
-  const [userInfo, setUserInfo] = useState({
-    name: user.name,
-    email: user.email,
-    gender: "Male",
-    dateOfBirth: "1990-01-01",
-    password: "********",
-    avatar: null,
-  });
+  const [userInfo, setUserInfo] = useState({});
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedInfo, setEditedInfo] = useState({ ...userInfo });
@@ -22,6 +21,22 @@ const UserProfile = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      setUserInfo({
+        name: user.name || "",
+        email: user.email,
+        gender: "Male",
+        dateOfBirth: "1990-01-01",
+        password: "********",
+        avatar: null,
+      });
+      setEditedInfo({ ...userInfo });
+      setLoading(false);
+    }
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,6 +90,10 @@ const UserProfile = () => {
     setPasswordError("");
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="max-w-md mx-auto mt-6 p-6 border rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-6">
@@ -105,7 +124,7 @@ const UserProfile = () => {
             <label htmlFor="avatar-upload" className="cursor-pointer relative">
               {avatarPreview || userInfo.avatar ? (
                 <img
-                  src={avatarPreview || userInfo.avatar}
+                  src={"https://github.com/shadcn.png"}
                   alt="Avatar"
                   className="w-24 h-24 rounded-full object-cover"
                 />
@@ -121,7 +140,7 @@ const UserProfile = () => {
           </div>
         ) : (
           <img
-            src={userInfo.avatar || avatarPreview}
+            src={"https://github.com/shadcn.png"}
             alt="Avatar"
             className="w-24 h-24 rounded-full object-cover mb-4"
           />
@@ -176,7 +195,10 @@ const UserProfile = () => {
               />
             </div>
             <div className="w-full">
-              <label htmlFor="gender" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="gender"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Gender
               </label>
               <Select name="gender" onValueChange={handleSelectGenderChange}>

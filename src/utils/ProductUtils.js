@@ -43,6 +43,7 @@ export const getProductsByCategory = (products, category, length, from = 0) => {
 export const transformProductData = (productData) => {
     // Create base variant from main product data
     const baseVariant = {
+        id: productData.data.id,
       name: productData.data.name,
       price: productData.data.price,
       color: productData.data.color,
@@ -58,17 +59,18 @@ export const transformProductData = (productData) => {
   
     // Transform additional variants
     const additionalVariants = productData.variant.map(variant => ({
+        id: variant.id,
       name: variant.name_ || productData.data.name,
       price: variant.price,
       color: variant.color,
       brand: variant.brand,
       description: variant.description_ || productData.data.description,
       weight: variant.weight_ || productData.data.weight,
-      category: variant.category,
+      category: productData.data.category,
       quantity: variant.quantity,
       rating: parseFloat(productData.data.rating) || 4.5,
-      images: variant.image_path ? variant.image_path.split(';') : [],
-      size: variant.size_
+      images: variant.image ? variant.image.split(';') : [],
+      size: variant.size_ || 40,
     }));
   
     // Combine base variant with additional variants

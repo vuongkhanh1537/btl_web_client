@@ -1,16 +1,13 @@
-import React from 'react';
-import { Parallax } from 'react-parallax';
+import React from "react";
+import { Parallax } from "react-parallax";
 
-const ParallaxImg = ({img}) => {
+const ParallaxImg = ({ img }) => {
   return (
     <section className="w-full relative my-12">
-      <Parallax
-        bgImage={img}
-        strength={500}
-        className="max-w-full max-h-full object-cover"
-      >
-        <div className="h-[300px] md:h-[400px] lg:h-[500px] w-full">
+      <Parallax bgImage={img} strength={500} bgClassName="max-w-full h-auto object-contain">
+        <div className="h-[250px] md:h-[300px] lg:h-[400px] w-full">
           <div className="container mx-auto px-4 h-full flex items-center justify-center">
+            {/* Nội dung bên trong nếu cần */}
           </div>
         </div>
       </Parallax>

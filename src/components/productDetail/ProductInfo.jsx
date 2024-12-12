@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Star, Minus, Plus, ShoppingCart } from 'lucide-react';
 import { formatCurrency } from '@/utils/CurrencyUtils';
+import { useHome } from '@/providers/HomeProvider';
 
 const ProductInfo = ({
-  productVariants = productVariants1,
+  productVariants,
 }) => {
+  const { addToCart } = useHome();
   const [selectedVariant, setSelectedVariant] = useState(productVariants[0]);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(productVariants[0].size);
@@ -55,6 +57,14 @@ const ProductInfo = ({
         />
       ));
   };
+
+  const handleAddToCart = () => {
+    // Add selected variant to cart
+    console.log("Added to cart", {
+      ...selectedVariant,
+    }, selectedQuantity);
+    addToCart(selectedVariant, selectedQuantity);
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -195,7 +205,10 @@ const ProductInfo = ({
           </div>
 
           {/* Nút thêm vào giỏ hàng */}
-          <button className="mt-6 w-full bg-gray-900 text-white py-3 px-4 rounded-md hover:bg-gray-800 flex items-center justify-center space-x-2">
+          <button 
+            className="mt-6 w-full bg-gray-900 text-white py-3 px-4 rounded-md hover:bg-gray-800 flex items-center justify-center space-x-2"
+            onClick={handleAddToCart}
+          >
             <ShoppingCart className="w-5 h-5" />
             <span>Add to Cart</span>
           </button>

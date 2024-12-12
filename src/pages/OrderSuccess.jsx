@@ -1,30 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle2, Package, Truck, Clock, ChevronRight, Home, Printer } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { formatCurrency } from '@/utils/CurrencyUtils';
+import { useHome } from '@/providers/HomeProvider';
 
 const OrderSuccess = () => {
+    const { setCartItems } = useHome(); 
     const navigate = useNavigate();
+    const location = useLocation();
+    const { orderId, cartItems, address, paymentMethod, shipping, subtotal, total, discountValue } = location.state || {};
     // Simulated order data
+
+    useEffect(() => {
+        // Clear cart after successful order
+        setCartItems([]);
+    }, [setCartItems]);
+
+
+
     const orderDetails = {
-        orderId: "1",
-        orderDate: "22/11/2024",
-        expectedDelivery: "25/11/2024",
-        paymentMethod: "Card payment",
-        shippingAddress: "123 ABC Street, District 1, HCMC",
-        items: [
-            { id: 1, name: "Nike Air Max Shoes", price: 2500000, quantity: 1 },
-            { id: 2, name: "Adidas Boost Shoes", price: 2800000, quantity: 1 }
-        ],
-        subtotal: 5300000,
-        shipping: 30000,
-        total: 5330000
+        orderId: orderId || "12",
+        orderDate: new Date().toLocaleDateString(),
+        expectedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+        paymentMethod: paymentMethod || "Credit Card",
+        shippingAddress: address,
+        items: cartItems.map((item) => ({
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price
+        })),
+        subtotal: subtotal,
+        shipping: shipping,
+        discountValue: discountValue,
+        total: total
     };
 
     const steps = [
         { icon: Package, text: "Order confirmed" },
-        { icon: Clock, text: "Preparing order" },
         { icon: Truck, text: "Shipping" },
         { icon: Home, text: "Delivered" }
     ];
@@ -101,7 +116,7 @@ const OrderSuccess = () => {
                                         <p className="font-medium">{item.name}</p>
                                         <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
                                     </div>
-                                    <p className="font-medium">{item.price.toLocaleString()}đ</p>
+                                    <p className="font-medium">{formatCurrency(item.price)}</p>
                                 </div>
                             ))}
                             
@@ -110,15 +125,19 @@ const OrderSuccess = () => {
                             <div className="space-y-2">
                                 <div className="flex justify-between">
                                     <p>Subtotal</p>
-                                    <p>{orderDetails.subtotal.toLocaleString()}đ</p>
+                                    <p>{formatCurrency(orderDetails.subtotal)}</p>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p>Discount</p>
+                                    <p>{formatCurrency(orderDetails.discountValue)}</p>
                                 </div>
                                 <div className="flex justify-between">
                                     <p>Shipping Fee</p>
-                                    <p>{orderDetails.shipping.toLocaleString()}đ</p>
+                                    <p>{formatCurrency(orderDetails.shipping)}</p>
                                 </div>
                                 <div className="flex justify-between font-bold text-lg">
                                     <p>Total</p>
-                                    <p>{orderDetails.total.toLocaleString()}đ</p>
+                                    <p>{formatCurrency(orderDetails.total)}</p>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +153,7 @@ const OrderSuccess = () => {
                         <ul className="list-disc pl-4 space-y-1 text-sm">
                             <li>You will receive an order confirmation email within a few minutes</li>
                             <li>Track your order in the "My Orders" section</li>
-                            <li>Contact us if you need support: 1900 xxxx</li>
+                            <li>Contact us if you need support: 123456789</li>
                         </ul>
                     </div>
                 </AlertDescription>
@@ -142,14 +161,15 @@ const OrderSuccess = () => {
 
             {/* Action buttons */}
             <div className="flex gap-4 justify-center">
-                {/* <button
+                <button
                     className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                     onClick={() => {
                         // Navigate to order tracking page
+                        navigate("/orders");
                     }}
                 >
                     Track Order
-                </button> */}
+                </button>
                 <button
                     className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                     onClick={() => {

@@ -33,7 +33,7 @@ const sampleReviews = [
       "Giày đẹp, nhưng hơi chật một chút so với size bình thường tôi hay đi.",
     likes: 8,
     images: ["/api/placeholder/100/100"],
-    size: 39,
+    size: 40,
     color: "White",
     isVerifiedPurchase: true,
   },
@@ -178,19 +178,6 @@ const ProductReviews = () => {
             <div className="mt-4">
               <p className="text-gray-700">{review.content}</p>
             </div>
-
-            {review.images && review.images.length > 0 && (
-              <div className="mt-4 flex gap-2">
-                {review.images.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`Review ${index + 1}`}
-                    className="w-24 h-24 object-cover rounded"
-                  />
-                ))}
-              </div>
-            )}
 
             <div className="mt-4 text-sm text-gray-500">
               <span>Size: {review.size}</span>

@@ -7,10 +7,9 @@ import { formatCurrency } from '@/utils/CurrencyUtils';
 
 const ShoppingCart = () => {
   const navigate = useNavigate();
-  const { cartItems, setCartItems } = useHome();
+  const { cartItems, setCartItems, updateQuantity, removeFromCart, setDiscount, discount } = useHome();
 
   const [promoCode, setPromoCode] = useState('');
-  const [discount, setDiscount] = useState(0);
   const [promoError, setPromoError] = useState('');
 
   // Giả lập danh sách mã giảm giá
@@ -20,32 +19,24 @@ const ShoppingCart = () => {
     'SHOES20': 20
   };
 
-  const updateQuantity = (id, change) => {
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
-    );
-  };
-
-  const removeItem = (id) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
   const applyPromoCode = () => {
     if (validPromoCodes[promoCode]) {
-      setDiscount(validPromoCodes[promoCode]);
+      setDiscount({
+        code: promoCode,
+        value: validPromoCodes[promoCode]
+      });
       setPromoError('');
     } else {
-      setDiscount(0);
+      setDiscount({
+        code: '',
+        value: 0
+      });
       setPromoError('Mã giảm giá không hợp lệ');
     }
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const discountAmount = (subtotal * discount) / 100;
+  const discountAmount = (subtotal * discount.value) / 100;
   const totalAmount = subtotal - discountAmount;
 
   const handleClick = () => {
@@ -105,7 +96,7 @@ const ShoppingCart = () => {
                         </div>
 
                         <button
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => removeFromCart(item.id)}
                           className="p-2 text-red-500 hover:bg-red-50 rounded"
                         >
                           <Trash2 className="w-5 h-5" />
@@ -156,10 +147,10 @@ const ShoppingCart = () => {
                   <span>Subtotal:</span>
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
-                {discount > 0 && (
+                {discount.value > 0 && (
                   <div className="flex justify-between text-green-600">
-                    <span>Discount ({discount}%):</span>
-                    <span>-{discountAmount.toLocaleString('vi-VN')}đ</span>
+                    <span>Discount ({discount.value}%):</span>
+                    <span>-{formatCurrency(discountAmount)}</span>
                   </div>
                 )}
                 <div className="border-t pt-3 font-bold text-lg">

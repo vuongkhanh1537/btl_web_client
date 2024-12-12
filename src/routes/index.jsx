@@ -13,6 +13,7 @@ import AdminPage from "@/pages/Admin/AdminPage";
 import { getProductById } from "@/services/ProductService";
 import UserProfile from "@/pages/Client/UserProfilePage";
 import OrderTrackingPage from "@/pages/Client/OrderTrackingPage";
+import { getOrders } from "@/services/OrderService";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -79,7 +80,10 @@ const router = createBrowserRouter([
       },
       {
         path: "orders",
-        element: <OrderTrackingPage />
+        element: <OrderTrackingPage />,
+        loader: async () => {
+          return await getOrders();
+        }
       }
     ],
   },

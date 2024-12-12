@@ -2,13 +2,8 @@ import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { MapPin } from "lucide-react";
 
-const DeliveryAddress = ({}) => {
-  const [deliveryData, setDeliveryData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    address: "",
-  });
+const DeliveryAddress = ({deliveryData, setDeliveryData}) => {
+
   const handleInputChange = (e) => {
     setDeliveryData({
       ...deliveryData,
@@ -21,7 +16,7 @@ const DeliveryAddress = ({}) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <MapPin className="w-5 h-5" />
-          Thông tin giao hàng
+          Delivery Address
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -29,7 +24,7 @@ const DeliveryAddress = ({}) => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Họ và tên
+                Full Name
               </label>
               <input
                 type="text"
@@ -54,7 +49,7 @@ const DeliveryAddress = ({}) => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Số điện thoại
+              Phone
             </label>
             <input
               type="tel"
@@ -66,7 +61,7 @@ const DeliveryAddress = ({}) => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Địa chỉ giao hàng
+              Address
             </label>
             <textarea
               name="address"

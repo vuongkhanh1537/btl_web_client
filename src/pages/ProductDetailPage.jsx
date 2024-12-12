@@ -7,6 +7,8 @@ import { transformProductData } from '@/utils/ProductUtils';
 const ProductDetailPage = () => {
   const data = useLoaderData();
   // console.log(transformProductData(data));
+  // console.log(data);
+  
   
   return (<>
     <ProductInfo productVariants={transformProductData(data)}/>

@@ -5,10 +5,12 @@ import { CreditCard, Truck, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useHome } from "@/providers/HomeProvider";
 import DeliveryAddress from "@/components/landingPage/DeliveryAddress";
+import { formatCurrency } from "@/utils/CurrencyUtils";
+import { createOrder } from "@/services/OrderService";
 
 const PaymentPage = () => {
   const navigate = useNavigate();
-  const { cartItems } = useHome();
+  const { cartItems, discount } = useHome();
   const [paymentMethod, setPaymentMethod] = useState("");
   const [cardData, setCardData] = useState({
     cardNumber: '',
@@ -16,12 +18,20 @@ const PaymentPage = () => {
     cvv: ''
   });
 
+  const [deliveryData, setDeliveryData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    address: "",
+  });
+
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-  const shipping = 30000;
-  const total = subtotal + shipping;
+  const shipping = 20;
+  const discountValue = discount.value / 100 * subtotal;
+  const total = subtotal + shipping - discountValue;
 
   const handleInputChange = (e) => {
     setCardData({
@@ -29,6 +39,26 @@ const PaymentPage = () => {
       [e.target.name]: e.target.value
     });
   };
+
+  const handleSubmit = async () => {
+    console.log(paymentMethod, cardData, deliveryData, discount);
+
+    const data = {
+      order_time: new Date().toISOString(),
+      delivery_fee: shipping,
+      payment_method: paymentMethod,
+      discount_code: discount.code,
+      delivery_address: deliveryData,
+      payment_status: "Not Completed",
+      status_: "Shipping",
+    }
+
+    let response;
+    response = await createOrder(data);
+    console.log(response);
+    
+    navigate("/checkout/success", { state: { orderId: response?.data.data.id, cartItems, address: deliveryData.address, paymentMethod, shipping, subtotal, total, discountValue } });
+  }
 
   return (
     <section className="min-h-screen mx-auto px-4 py-8">
@@ -39,10 +69,10 @@ const PaymentPage = () => {
           <p className="text-gray-600 mt-2">Complete your order</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
-          <div className="md:col-span-2">
-            <DeliveryAddress />
+          <div className="lg:col-span-2">
+            <DeliveryAddress deliveryData={deliveryData} setDeliveryData={setDeliveryData}/>
 
             <Card className="mb-6">
               <CardHeader>
@@ -58,8 +88,8 @@ const PaymentPage = () => {
                       type="radio"
                       id="card"
                       name="paymentMethod"
-                      value="card"
-                      checked={paymentMethod === "card"}
+                      value="Credit Card"
+                      checked={paymentMethod === "Credit Card"}
                       onChange={(e) => setPaymentMethod(e.target.value)}
                       className="w-4 h-4"
                     />
@@ -69,7 +99,7 @@ const PaymentPage = () => {
                     </label>
                   </div>
 
-                  {paymentMethod === "card" && (
+                  {paymentMethod === "Credit Card" && (
                     <div className="grid gap-4 mt-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -120,8 +150,8 @@ const PaymentPage = () => {
                       type="radio"
                       id="cod"
                       name="paymentMethod"
-                      value="cod"
-                      checked={paymentMethod === "cod"}
+                      value="COD"
+                      checked={paymentMethod === "COD"}
                       onChange={(e) => setPaymentMethod(e.target.value)}
                       className="w-4 h-4"
                     />
@@ -151,7 +181,7 @@ const PaymentPage = () => {
                         </p>
                       </div>
                       <p className="font-medium">
-                        {item.price.toLocaleString()}đ
+                        {formatCurrency(item.price)}
                       </p>
                     </div>
                   ))}
@@ -161,24 +191,25 @@ const PaymentPage = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <p>Subtotal</p>
-                      <p>{subtotal.toLocaleString()}đ</p>
+                      <p>{formatCurrency(subtotal)}</p>
+                    </div>
+                    <div className="flex justify-between">
+                      <p>Discount</p>
+                      <p>{formatCurrency(discountValue)}</p>
                     </div>
                     <div className="flex justify-between">
                       <p>Delivery Fee</p>
-                      <p>{shipping.toLocaleString()}đ</p>
+                      <p>{formatCurrency(shipping)}</p>
                     </div>
                     <div className="flex justify-between font-bold text-lg">
                       <p>Total</p>
-                      <p>{total.toLocaleString()}đ</p>
+                      <p>{formatCurrency(total)}</p>
                     </div>
                   </div>
 
                   <button
                     className="w-full bg-gray-800 text-white py-3 rounded-md hover:bg-gray-700 transition-colors"
-                    onClick={() => {
-                      // Xử lý logic thanh toán ở đây
-                      navigate("success");
-                    }}
+                    onClick={handleSubmit}
                   >
                     Order Now
                   </button>

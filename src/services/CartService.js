@@ -18,8 +18,12 @@ class CartService {
   }
 
   async getCart() {
-    const response = axiosInstance.get(this.BASE_URL);
-    return response;
+    try {
+      const response = axiosInstance.get(this.BASE_URL);
+      return response;
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
   }
 
   async removeItem(id) {

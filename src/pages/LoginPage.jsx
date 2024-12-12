@@ -5,17 +5,20 @@ import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const { darkMode } = useHome();
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, register, user } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {    
+  useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      if (user.role === "manager") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     }
   }, [isAuthenticated]);
-
 
   // Form states
   const [formData, setFormData] = useState({
@@ -108,31 +111,27 @@ const LoginPage = () => {
         const { email, password } = formData;
         const response = await login(email, password);
         if (response.success) {
-          navigate("/")
+          if (user.role === "manager") {
+            navigate("/admin/dashboard");
+          }
         } else {
           throw new Error(data.message || "Login failed");
         }
       } else {
         // Register logic
-        const response = await fetch("/api/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            fullName: formData.fullName,
-            email: formData.email,
-            password: formData.password,
-          }),
+        const { fullName, email, password } = formData;
+        const response = await register({
+          name: fullName,
+          email,
+          password,
+          birthday: "1999-01-01",
         });
 
-        const data = await response.json();
-        if (!response.ok)
-          throw new Error(data.message || "Registration failed");
-
-        // Handle successful registration
-        console.log("Registration successful:", data);
-        // You can automatically login user or redirect to login page
+        if (response.success) {
+          navigate("/");
+        } else {
+          throw new Error(data.message || "Login failed");
+        }
       }
     } catch (error) {
       setErrors((prev) => ({

@@ -19,12 +19,17 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/providers/AuthContext";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useEffect } from "react";
 
 const Header = () => {
   const { darkMode, toggleMode, cartItems } = useHome();
   const { logout, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
-  const cartItemCount = cartItems.length;
+  let cartItemCount = cartItems.length;
+
+  useEffect(() => {
+    cartItemCount = cartItems.length;
+  }, [cartItems]);
 
   const handleLogout = () => {
     // Xử lý logout
