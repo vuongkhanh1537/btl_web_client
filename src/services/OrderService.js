@@ -1,3 +1,4 @@
+import axiosInstance from "./axiosInstance";
 import axios from "axios";
 
 const apiURL = "http://localhost/btl_web_core/api/orders";
@@ -43,3 +44,23 @@ export const updateOrder = async (id, status_, payment_status) => {
     throw error; // Propagate the error for handling in the calling component
   }
 };
+
+export const createOrder = async (orderData) => {
+  try {
+    const response = await axiosInstance.post("/orders", orderData);
+    return response;
+  } catch (error) {
+    console.error("Error creating order:", error);
+    throw error; // Propagate the error for handling in the calling component
+  }
+};
+
+export const getOrders = async () => {
+  try {
+    const response = await axiosInstance.get("/orders");
+    return response;
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    throw error; // Propagate the error for handling in the calling component
+  }
+}

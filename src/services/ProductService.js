@@ -74,3 +74,16 @@ export const updateProduct = async (id, updatedProduct) => {
     );
   }
 };
+
+export const getProductById = async (productId) => {
+  try {
+    const response = await fetch(`${apiURL}/${productId}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch product data");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error; // Propagate the error for handling in the calling component
+  }
+}
