@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SelectInput from "../FormInput/SelectInput";
-import { paymentOptions, statusOptions } from "../../utils/selectOptions";
-import { Toast, ToastContainer } from "react-bootstrap";
+import { paymentOptions, paymentStatusOptions, statusOptions } from "../../utils/selectOptions";
+
 
 
 function EditModal({
@@ -22,7 +22,7 @@ function EditModal({
 
   useEffect(() =>{
     if(selectedOrder) {
-      setOrderStatus(selectedOrder.status);
+      setOrderStatus(selectedOrder.status_);
       setPaymentStatus(selectedOrder.payment_status);
     }
   },[selectedOrder]);
@@ -30,7 +30,7 @@ function EditModal({
   
   function handleChange(e){
     const {name, value} = e.target;
-    if(name === 'status'){
+    if(name === 'status_'){
       setOrderStatus(value);
     }
     if(name === 'payment_status'){
@@ -42,7 +42,7 @@ function EditModal({
   
   
   function handleClickConfirm() {
-    const updatedOrder = {...selectedOrder, status: orderStatus, payment_status: paymentStatus};
+    const updatedOrder = {...selectedOrder, status_: orderStatus, payment_status: paymentStatus};
     handleEditConfirm(updatedOrder);
     setShowToast(true); // Trigger the toast
     handleToggleModal();
@@ -53,7 +53,7 @@ function EditModal({
 
   return (
     <>
-     <ToastContainer position="top-end" style={{position: 'fixed', marginTop: '30px', marginRight: '30px'}}>
+     {/* <ToastContainer position="top-end" style={{position: 'fixed', marginTop: '30px', marginRight: '30px'}}>
         <Toast className="bg-success text-white" show={showToast} onClose={() => setShowToast(false)} delay={3000} autohide>
           <Toast.Header>
             <strong className="me-auto">Update</strong>
@@ -61,46 +61,7 @@ function EditModal({
           </Toast.Header>
           <Toast.Body  className="text-white">Order updated successfully!</Toast.Body>
         </Toast>
-      </ToastContainer>
-      {/* <div className={`modal ${showModal ? "show" : ""}`} tabIndex="-1">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">{title}</h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                onClick={handleToggleModal}
-              ></button>
-            </div>
-            <div className="modal-body">
-             
-              
-              <SelectInput label="Order Status" options={statusOptions} name="status" value={orderStatus} handleChange={handleChange}  />
-              <SelectInput label="Payment Status" options={paymentOptions} name="payment_status" value={paymentStatus} handleChange={handleChange}  />
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-                onClick={handleToggleModal}
-              >
-                {close}
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={()=> handleClickConfirm()}
-              >
-                {confirm}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
+      </ToastContainer> */}
     <div
   className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity ${
     showModal ? "visible" : "invisible"
@@ -124,14 +85,14 @@ function EditModal({
       <SelectInput
         label="Order Status"
         options={statusOptions}
-        name="status"
+        name="status_"
         value={orderStatus}
         handleChange={handleChange}
       />
       {/* Payment Status Select */}
       <SelectInput
         label="Payment Status"
-        options={paymentOptions}
+        options={paymentStatusOptions}
         name="payment_status"
         value={paymentStatus}
         handleChange={handleChange}

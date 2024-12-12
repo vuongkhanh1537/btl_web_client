@@ -4,16 +4,58 @@ import { NavLink } from "react-router-dom";
 function SidebarItem({ item, showSideBar }) {
   const [subnav, setSubnav] = useState(false);
 
-
   function showSubNav() {
     setSubnav((subnav) => !subnav);
   }
 
   if (!showSideBar) {
-    return <NavLink 
-    to={item.path} className={`sidebar-item`}>{item.icon} 
+    // return <NavLink 
+    // to={item.path} className={`sidebar-item`}>{item.icon} 
     
-    </NavLink>
+    // </NavLink>
+    return (
+      <div
+        className="sidebar-item"
+        onClick={showSubNav}
+        style={{ position: "relative" }}
+      >
+        {item.icon}
+
+        {/* Display sub-navigation */}
+        {subnav && item.subNav && (
+          <div
+            className="sidebar-subnav-container"
+            style={{
+              position: "absolute",
+              left: "100%",
+              top: "0",
+              background: '#262d34',
+              borderRadius: "8px",
+              padding: "8px",
+              zIndex: "10",
+              display: "flex",
+              flexDirection: "column", // Stack items vertically
+            }}
+          >
+            {item.subNav.map((subItem, index) => (
+              <NavLink
+                className="sidebar-item"
+                to={subItem.path}
+                key={index} // Ensure unique keys for each sub-item
+                style={{
+                  padding: "8px",
+                  color: 'black',
+                  background: '#262d34',
+                  borderRadius: "8px",
+                }}
+              >
+                {subItem.title}
+              </NavLink>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   }  
   else if (!item.subNav) {
     return (

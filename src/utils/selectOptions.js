@@ -1,12 +1,16 @@
 export const statusOptions = [
-  { value: "Pending", label: "Pending" },
-  { value: "Inprogress", label: "In Progress" },
-  { value: "Processing", label: "Processing" },
-  { value: "Delivered", label: "Delivered" },
-  { value: "Returned", label: "Returned" },
+  
+  
+  { value: "Completed", label: "Completed" },
+  { value: "Shipping", label: "Shipping" },
   { value: "Cancelled", label: "Cancelled" },
 ];
 
+export const paymentStatusOptions = [
+  { value: "Completed", label: "Completed" },
+  { value: "Not Completed", label: "Not Completed" },
+  { value: "Cancelled", label: "Cancelled" },
+]
 export const paymentOptions = [
   { value: "Cash on Delivery", label: "Cash on Delivery" },
   { value: "Credit Card", label: "Credit Card" },
@@ -15,9 +19,9 @@ export const paymentOptions = [
 ];
 
 export const categories = [
-  { value: "Shoes", label: "Shoes" },
-  { value: "Stocks", label: "Stocks" },
-  { value: "Sneaker", label: "Sneaker" },
+  { value: "Men", label: "Men" },
+  { value: "Women", label: "Women" },
+  { value: "Unisex", label: "Unisex" },
 ];
 
 export const colors = [

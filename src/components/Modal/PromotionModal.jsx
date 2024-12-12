@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { Toast, ToastContainer } from "react-bootstrap";
+
 import TextInput from "../FormInput/TextInput";
 import InputGroup from "../FormInput/InputGroup";
+import { addPromotion, updatePromotion } from "../../services/PromotionService";
 
 const initialPromotionState = {
-  code_id: "",
   name_: "",
   start_date: "",
   end_date: "",
-  min_order: 0.0,
-  maximum_promo: 0.0,
   promo_value: 0.0,
-  init_quantity: 0,
+  
 };
 function PromotionModal({
   selectedPromotionID,
@@ -32,6 +30,7 @@ function PromotionModal({
       const selectedPromotion = promotionData.find(
         (promotion) => promotion.code_id === selectedPromotionID
       );
+      console.log(selectedPromotion);
       setPromotion(selectedPromotion);
     } else {
       setPromotion(initialPromotionState);
@@ -48,30 +47,36 @@ function PromotionModal({
     }));
   }
 
-  function handleClickConfirm(e) {
+  async function handleClickConfirm(e) {
     e.preventDefault();
     if (selectedPromotionID) {
       // Update the promotion
-
+      const response = await updatePromotion(selectedPromotionID, promotion);
+      console.log(response);
       const updatedPromotions = promotionData.map((item) =>
         item.code_id === selectedPromotionID ? promotion : item
       );
       setPromotionData(updatedPromotions);
       setShowToast(true); // Trigger the toast
+      alert("Promotion updated successfully");
       handleToggleModal();
     } else {
       // Add new promotion
-
+      
+      const response = await addPromotion(promotion);
+      
       const newPromotion = { ...promotion, code_id: Date.now() };
       setPromotionData([...promotionData, newPromotion]);
       setShowToast(true); // Trigger the toast
-      setPromotion(initialPromotionState);
+      // setPromotion(initialPromotionState);
+      alert("Promotion added successfully");
+
     }
   }
 
   return (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-end"
         style={{ position: "fixed", marginTop: "30px", marginRight: "30px" }}
       >
@@ -88,90 +93,8 @@ function PromotionModal({
           </Toast.Header>
           <Toast.Body className="text-white">{title} successfully!</Toast.Body>
         </Toast>
-      </ToastContainer>
-      {/* <form onSubmit={ handleClickConfirm}>
-      <div className={`modal ${showModal ? "show" : ""}`} tabIndex="-1">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">{title}</h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                onClick={handleToggleModal}
-              ></button>
-            </div>
-            <div className="modal-body">
-              
-                <TextInput
-                  type="text"
-                  name="name_"
-                  value={promotion.name_}
-                  label="Code Name"
-                  placeholder="Code Name"
-                  handleChange={handleChange}
-                  required
-                />
-
-                <div className="row">
-                  <div className="col-sm-6">
-                    
-                    <TextInput
-                      type="date"
-                      name="start_date"
-                      value={promotion.start_date}
-                      label="Start Date"
-                      placeholder="Start Date"
-                      handleChange={handleChange}
-                      required={true}
-                    />
-                  </div>
-                  <div className="col-sm-6">
-                    
-                    <TextInput
-                      type="date"
-                      name="end_date"
-                      value={promotion.end_date}
-                      label="End Date"
-                      placeholder="End Date"
-                      handleChange={handleChange}
-                      required={true}
-                    />
-                  </div>
-                </div>
-
-                
-                <InputGroup
-                  label="Value"
-                  prependText="%"
-                  type="number"
-                  name="promo_value"
-                  value={promotion.promo_value}
-                  placeholder="Value"
-                  handleChange={handleChange}
-                  required={true}
-                />
-              
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-                onClick={handleToggleModal}
-              >
-                {close}
-              </button>
-              <button type="submit" className="btn btn-primary">
-                {confirm}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </form> */}
+      </ToastContainer> */}
+      
       <form onSubmit={handleClickConfirm}>
   <div
     className={`fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center ${

@@ -1,13 +1,44 @@
 import axiosInstance from "./axiosInstance";
+import axios from "axios";
 
-const apiURL = "http://localhost/BTL/btl_web_core/temp_api/api.php/order_";
+const apiURL = "http://localhost/btl_web_core/api/orders";
+const token = localStorage.getItem("access_token");
 export const fetchOrdersData = async () => {
   try {
-    const response = await fetch(apiURL);
-    if (!response.ok) {
-      throw new Error("Failed to fetch orders data");
-    }
-    return await response.json();
+    const response = await axios.get(apiURL, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error; // Propagate the error for handling in the calling component
+  }
+};
+
+export const getOrderById = async (id) => {
+  try {
+    const response = await axios.get(`${apiURL}/${id}/details`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error; // Propagate the error for handling in the calling component
+  }
+};
+
+
+export const updateOrder = async (id, status_, payment_status) => {
+  try {
+    const response = await axios.put(`http://localhost/btl_web_core/api/dashboard/orders/${id}`, {status_, payment_status});
+    console.log(response);
+    return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error; // Propagate the error for handling in the calling component

@@ -1,14 +1,34 @@
 import { useParams } from "react-router-dom";
-import FormInfo from "../../components/Product/FormInfo";
+import FormInfo from "./FormInfo";
 import PageLayout from "../../Layouts/PageLayout";
+import { useEffect, useState } from "react";
+import { getProductById } from "../../services/ProductService";
 
 function EditProduct({ productData, setProductData }) {
   const { id } = useParams();
-  const selectedProductId = id;
-  console.log(id);
-  const selectedProduct = productData.find(
-    (product) => product.product_id === selectedProductId
-  );
+
+  const [selectedProduct, setSelectedProduct] = useState({});
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const data = await getProductById(id);
+
+        setSelectedProduct({
+          ...data,
+          product_id: data.id,
+          image_path: data.image,
+        });
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    };
+    fetchProduct();
+  }, []);
+  // const selectedProductId = id;
+  // console.log(id);
+  // const selectedProduct = productData.find(
+  //   (product) => product.product_id === selectedProductId
+  // );
 
   return (
     // <div className="page-content">

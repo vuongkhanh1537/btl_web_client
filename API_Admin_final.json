@@ -1,0 +1,297 @@
+{
+   
+    "order": {
+
+      "update_order": {
+        "url": "localhost/btl_web_core/api/orders/{id}",
+        "method": "PUT",
+        "description": "Update order status and payment method",
+        "request": {
+          "header": {
+            "Authorization": "Bearer token"
+          },
+          "body": {
+            "payment_status": "Completed/Not Completed/Cancelled",
+            "status_": "Completed/Shipping/Cancelled"
+          }
+        },
+        "response": {
+          "message": "Order updated successfully"
+        }
+      }
+
+    }
+    
+  }
+  
+{
+    "promotion": {
+      "get_all_promotions": {
+        "url": "localhost/btl_web_core/api/promotions",
+        "method": "GET",
+        "description": "Get all promotions",
+        "request": {
+          "header": {
+            "Authorization": "Bearer token"
+          },
+          "body": {
+            "name_": "string",
+            "start_date": "datetime",
+            "end_date": "datetime",
+            "promo_value": "number",
+            
+          }
+        },
+        "response": {
+          "message": "Get all promotions successfully",
+          "data": {
+            "code_id": "number",
+            "name_": "string",
+            "start_date": "datetime",
+            "end_date": "datetime",
+            "promo_value": "number",
+            
+          }
+        }
+      },
+
+    "promotion": {
+      "add_promotion": {
+        "url": "localhost/btl_web_core/api/promotions",
+        "method": "POST",
+        "description": "Add a new promotion",
+        "request": {
+          "header": {
+            "Authorization": "Bearer token"
+          },
+          "body": {
+            "name_": "string",
+            "start_date": "datetime",
+            "end_date": "datetime",
+            "promo_value": "number",
+            
+          }
+        },
+        "response": {
+          "message": "Promotion added successfully",
+          "data": {
+            "code_id": "string",
+            
+          }
+        }
+      },
+      "update_promotion": {
+        "url": "localhost/btl_web_core/api/promotions/{id}",
+        "method": "PUT",
+        "description": "Update promotion details",
+        "request": {
+          "header": {
+            "Authorization": "Bearer token"
+          },
+          "body": {
+            "name_": "string",
+            "start_date": "datetime",
+            "end_date": "datetime",
+            "promo_value": "number",
+            
+          }
+        },
+        "response": {
+          "message": "Promotion updated successfully",
+        }
+      },
+      "delete_promotion": {
+        "url": "localhost/btl_web_core/api/promotions/{id}",
+        "method": "DELETE",
+        "description": "Delete a promotion",
+        "request": {
+          "header": {
+            "Authorization": "Bearer token"
+          }
+        },
+        "response": {
+          "message": "Promotion deleted successfully"
+        }
+      }
+    }
+  }
+
+{
+    "customer": {
+      "get_all_customers": {
+        "url": "localhost/btl_web_core/api/customers",
+        "method": "GET",
+        "description": "Get users where role is customer",
+        "request": {
+          "header": {
+            "Authorization": "Bearer token"
+          }
+        },
+        "response": {
+          "data": [
+            {
+              "user_id": "string",
+              "name_": "string",
+              "username": "string",
+              "email": "string",
+              "role_": "string",
+              "gender": "string",
+              "birthday": "date",
+              "address_": "string"
+            }
+          ]
+        }
+      }
+
+    }
+  }
+  
+
+
+//  Dashboard data: 
+
+{
+    
+    "product": {
+      "get_top_selling": {
+        "url": "localhost/btl_web_core/api/products/top-selling",
+        "method": "GET",
+        "description": "Get top selling products (top 10 or top 20) within a specified date range",
+        "request": {
+          "header": {
+            "Authorization": "Bearer token"
+          },
+          "query_parameters": {
+            "start_date": "string (YYYY-MM-DD)",
+            "end_date": "string (YYYY-MM-DD)"
+          }
+        },
+        "response": {
+          "data": [
+            {
+              "product_id": "string",
+              "name_": "string",
+              "price": "number",
+              "color": "string",
+              "brand": "string",
+              "description_": "text",
+              "image_path": "string",
+              "weight_": "number",
+              "size_": "number",
+              "quantity": "number",
+              "category": "string",
+              "collection_id": "string",
+              "sales_count": "number"
+            }
+          ]
+        }
+      }
+    },
+ // Example response for get_sales_by_category:
+// {
+//     "data": [
+//       {
+//         "category": "Shoes",
+//         "revenue": 15000
+//       },
+//       {
+//         "category": "Sneakers",
+//         "revenue": 12000
+//       },
+//       {
+//         "category": "Stocks",
+//         "revenue": 8000
+//       }
+//     ]
+//   }
+
+    
+
+    "order": {
+    "get_total_order_count": {
+      "url": "localhost/btl_web_core/api/orders/count",
+      "method": "GET",
+      "description": "Get total order count within a specified date range",
+      "request": {
+        "header": {
+          "Authorization": "Bearer token"
+        },
+        "query_parameters": {
+          "start_date": "string (YYYY-MM-DD)",
+          "end_date": "string (YYYY-MM-DD)"
+        }
+      },
+      "response": {
+        "data": {
+          "total_order_count": "number"
+        }
+      }
+    }
+  }
+{
+
+
+  "order": {
+    "get_total_order_completed": {
+      "url": "localhost/btl_web_core/api/orders/completed",
+      "method": "GET",
+      "description": "Get total order completed count within a specified date range",
+      "request": {
+        "header": {
+          "Authorization": "Bearer token"
+        },
+        "query_parameters": {
+          "start_date": "string (YYYY-MM-DD)",
+          "end_date": "string (YYYY-MM-DD)"
+        }
+      },
+      "response": {
+        "data": {
+          "total_order_completed": "number"
+        }
+      }
+    }
+  }
+  {
+"revenue": {
+      "get_total_revenue_by_month": {
+        "url": "localhost/btl_web_core/api/revenue/monthly",
+        "method": "GET",
+        "description": "Get total revenue from completed orders by month in a year",
+        "request": {
+          "header": {
+            "Authorization": "Bearer token"
+          },
+          "query_parameters": {
+            "year": "number"
+          }
+        },
+        "response": {
+          "data": [
+            {
+              "month": "string",
+              "revenue": "number"
+            }
+          ]
+        }
+      }
+    },
+
+// Example response for get_total_revenue_by_month:
+// {
+//     "data": [
+//       {
+//         "month": "January",
+//         "revenue": 15000
+//       },
+//       {
+//         "month": "February",
+//         "revenue": 12000
+//       },
+//       {
+//         "month": "March",
+//         "revenue": 8000
+//       }
+//     ]
+//   }
+// }

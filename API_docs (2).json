@@ -1,0 +1,173 @@
+{
+  "login": {
+    "url": "localhost:8080/api/v1/login",
+    "method": "POST",
+    "description": "Login to the system",
+    "request": {
+      "body": {
+        "email": "string",
+        "password": "string"
+      }
+    },
+    "response": {
+      "data": {
+        "user": {
+          "id": "string",
+          "email": "string",
+          "name": "string",
+          "role": "string"
+        },
+        "token": "string"
+      }
+    }
+  },
+  "register": {
+    "url": "localhost/btl_web_core/api/register",
+    "method": "POST",
+    "description": "Register to the system",
+    "request": {
+      "body": {
+        "email": "string",
+        "password": "string",
+        "name": "string"
+      }
+    },
+    "response": {
+      "data": {
+        "user": {
+          "id": "string",
+          "email": "string",
+          "name": "string",
+          "role": "string"
+        },
+        "token": "string"
+      }
+    }
+  },
+  "get_products": {
+    "url": "localhost/btl_web_core/api/products",
+    "method": "GET",
+    "description": "Get all products",
+    "request": {
+      "header": {
+        "Authorization": "Bearer token"
+      }
+    },
+    "response": {
+      "data": [
+        {
+          "id": "string",
+          "name": "string",
+          "price": "number",
+          "image": "string",
+          "category": "string",
+          "rating": "number"
+        }
+      ]
+    },
+    "note": "If many variants of the same product, only return the one with highest rating or the first one is ok"
+  },
+  "get_product": {
+    "url": "localhost/btl_web_core/api/products/{id}",
+    "method": "GET",
+    "description": "Get a product by id, including all variants",
+    "request": {
+      "header": {
+        "Authorization": "Bearer token"
+      }
+    },
+    "response": {
+      "data": {
+        "id": "string",
+        "name": "string",
+        "price": "number",
+        "image": "string",
+        "description": "string",
+        "rating": "number",
+        "size": "string",
+        "color": "string",
+        "quantity": "number",
+        "weight": "number",
+        "category": "string",
+        "variants": [
+          {
+            "id": "string",
+            "name": "string",
+            "price": "number",
+            "image": "string",
+            "description": "string",
+            "rating": "number",
+            "size": "string",
+            "color": "string",
+            "quantity": "number",
+            "weight": "number",
+            "category": "string"
+          }
+        ]
+      }
+    }
+  },
+  "get_cart": {
+    "url": "localhost/btl_web_core/api/cart",
+    "method": "GET",
+    "description": "Get all products in cart",
+    "request": {
+      "header": {
+        "Authorization": "Bearer token"
+      }
+    },
+    "response": {
+      "data": [
+        {
+          "id": "string",
+          "name": "string",
+          "price": "number",
+          "image": "string",
+          "description": "string",
+          "rating": "number",
+          "quantity": "number"
+        }
+      ]
+    }
+  },
+  "add_to_cart": {
+    "url": "localhost/btl_web_core/api/cart",
+    "method": "POST",
+    "description": "Add a product to cart",
+    "request": {
+      "header": {
+        "Authorization": "Bearer token"
+      },
+      "body": {
+        "product_id": "string",
+        "quantity": "number"
+      }
+    },
+    "response": {}
+  },
+  "remove_from_cart": {
+    "url": "localhost/btl_web_core/api/cart/{id}",
+    "method": "DELETE",
+    "description": "Remove a product from cart",
+    "request": {
+      "header": {
+        "Authorization": "Bearer token"
+      }
+    },
+    "response": {}
+  },
+  "update_quantity": {
+    "url": "localhost/btl_web_core/api/cart/{id}",
+    "method": "PUT",
+    "description": "Update quantity of a product in cart",
+    "request": {
+      "header": {
+        "Authorization": "Bearer token"
+      },
+      "body": {
+        "quantity": "number"
+      }
+    },
+    "response": {}
+  }
+}

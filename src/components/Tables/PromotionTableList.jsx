@@ -6,6 +6,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 import PromotionModal from "../Modal/PromotionModal";
 import DeleteModal from "../Modal/DeleteModal";
+import { deletePromotion } from "../../services/PromotionService";
 
 function PromotionTableList({ promotionData, setPromotionData }) {
   const [selectedPromotionID, setSelectedPromotionID] = useState("");
@@ -39,13 +40,15 @@ function PromotionTableList({ promotionData, setPromotionData }) {
     handleToggleDeleteModal();
   }
 
-  function handleDeletePromotion(id) {
+  async function handleDeletePromotion(id) {
 
-    
+    const response = await deletePromotion(id);
+    console.log(response);
     const updatedPromotions = promotionData.filter(
       (promotion) => promotion.code_id !== id
     );
     setPromotionData(updatedPromotions);
+    alert("Promotion deleted successfully");
   }
   console.log(selectedPromotionID);
 

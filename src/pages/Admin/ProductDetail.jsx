@@ -1,12 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import productImage from "../../assets/img/giayAdidas.avif";
-import ImageSlider from "../../components/landingPage/ProductCarousel .jsx";
+
 import { Rating, Tooltip } from "@mui/material";
-import ReviewList from "../../components/landingPage/ReviewList.jsx";
+import ReviewList from "../../components/Product/ReviewList.jsx";
 import PageLayout from "../../Layouts/PageLayout.jsx";
-import ProductCarousel from "../../components/landingPage/ProductCarousel .jsx";
+import ProductCarousel from "../../components/Product/ProductCarousel .jsx";
 import { FaEdit } from "react-icons/fa";
 import { RiPencilFill } from "react-icons/ri";
+import { useEffect, useState } from "react";
+import { getProductById } from "../../services/ProductService.js";
 
 const reviews = [
   {
@@ -32,101 +34,65 @@ const reviews = [
   },
 ];
 
-const productImages = [
+
+
+function ProductDetail() {
+  const { id } = useParams();
+  // const selectedProductId = id;
+
+  // const selectedProduct = productData.find(
+  //   (product) => product.product_id === selectedProductId
+  // );
+
+  const [selectedProduct, setSelectedProduct] = useState({});
+
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setIsLoading(true);
+         const data = await getProductById(id);
+         setSelectedProduct(data);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }finally{
+        setIsLoading(false);
+      }
+    }
+    fetchProduct();
+  }, [])
+  
+  const navigate = useNavigate();
+  const specifications = [
+    { label: "Size", value: selectedProduct.size },
+    { label: "Color", value: selectedProduct.color },
+    { label: "Category", value: selectedProduct.category },
+    { label: "Brand", value: selectedProduct.brand },
+  ];
+  let productImages = [
   productImage,
   productImage,
   productImage,
   // Add more product images
 ];
+  
+  if(selectedProduct.image){
+    productImages = selectedProduct.image.split(';');
+  }
+  // const productImages = selectedProduct.image.split(';');
 
-function ProductDetail({ productData }) {
-  const { id } = useParams();
-  const selectedProductId = id;
-
-  const selectedProduct = productData.find(
-    (product) => product.product_id === selectedProductId
-  );
-
-  const navigate = useNavigate();
-  const specifications = [
-    { label: "Size", value: selectedProduct.size_ },
-    { label: "Color", value: selectedProduct.color },
-    { label: "Category", value: selectedProduct.category },
-    { label: "Brand", value: selectedProduct.brand },
-  ];
-
+  console.log(selectedProduct);
   function handleClickEdit(){
     navigate(`../edit/${id}`);
   }
   
+  if(isLoading){
+    return <div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-"></div>
+    </div>
+  }
   return (
-    // <PageLayout pageTitle="Product Details">
-    //   <div className="card">
-    //     <div className="card-body">
-    //       <div className="row">
-    //         <div className="col-xl-4 col-md-8 mx-auto">
-    //           {/* <img src={productImage} alt="Product" className="img-fluid"></img> */}
-    //           <ImageSlider />
-    //         </div>
 
-    //         <div className="col-xl-8">
-    //           <div className="card-body">
-    //             <h4>{selectedProduct.name} </h4>
-    //             <div className="d-flex flex-wrap gap-2 align-items-center mt-3">
-    //               <Rating
-    //                 name="read-only"
-    //                 precision={0.5}
-    //                 value={selectedProduct.rating}
-    //                 readOnly
-    //               />
-    //               {selectedProduct.rating}{" "}
-    //               <div className="text-muted">(55 reviews)</div>
-    //             </div>
-
-    //             <div className="row mt-4">
-    //               <div className="col-lg-6">
-    //                 <h5 className="text-muted">
-    //                   Price: {selectedProduct.price} VND
-    //                 </h5>
-    //               </div>
-    //               <div className="col-lg-6">
-    //                 <h5 className="text-muted fs-14">
-    //                   Avaible Stocks: {selectedProduct.quantity}
-    //                 </h5>
-    //               </div>
-    //             </div>
-    //             <div className="mt-4 text-muted">
-    //               <h5 className="fs-16">Description:</h5>
-    //               <p>{selectedProduct.description} </p>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <div className="mt-4">
-    //         <h5 className="mb-3 fs-14 text-muted">Product Specification: </h5>
-    //         <div className="table-responsive">
-    //           <table className="table border">
-    //             <tbody>
-    //               {specifications.map((spec) => (
-    //                 <tr key={spec.label}>
-    //                   <th scope="row" style={{ width: "300px" }}>
-    //                     {spec.label}
-    //                   </th>
-    //                   <td>{spec.value}</td>
-    //                 </tr>
-    //               ))}
-    //             </tbody>
-    //           </table>
-    //         </div>
-    //       </div>
-
-    //       <div className="mt-4">
-    //         <h5 className="mb-3 fs-14 text-muted">Reviews: </h5>
-    //         <ReviewList reviews={reviews} />
-    //       </div>
-    //     </div>
-    //   </div>
-    // </PageLayout>
     <PageLayout pageTitle="Product Details">
   <div className="bg-white shadow rounded-lg p-6">
     <div className="grid grid-cols-1 lg:grid-cols-2 mb-4 mt-4">
@@ -141,7 +107,7 @@ function ProductDetail({ productData }) {
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
           <h4 className="text-2xl font-bold text-gray-800">
-            {selectedProduct.name_}
+            {selectedProduct.name}
           </h4>
           <Tooltip title="Edit" placement="top">
           <button onClick={handleClickEdit} className="bg-gray-300 hover:bg-gray-400 p-3 rounded">
@@ -165,7 +131,7 @@ function ProductDetail({ productData }) {
               <h5 className="text-gray-700 text-2xl font-semibold">
                 Price:{" "}
                 <span className=" font-bold">
-                  {selectedProduct.price} VND
+                  {selectedProduct.price} $
                 </span>
               </h5>
             </div>
