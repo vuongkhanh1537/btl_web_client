@@ -14,6 +14,7 @@ fetchTotalOrders, fetchTotalRevenue } from "../../services/DashboardService";
 import { _, Grid } from "gridjs-react";
 import { formatCurrency } from "../../utils/formatCurrency";
 import ColumnChart from "../../components/Charts/ColumnChart";
+import { fetchCustomersData } from "../../services/CustomerService";
 
 
 
@@ -51,6 +52,8 @@ function Dashboard() {
       const response3 = await fetchTotalOrderDelivered(startDate, endDate);
       setTotalOrderCompleted(response3);
       
+      const response4 = await fetchCustomersData();
+      setNumofCustomers(response4.length);
       const response5 = await fetchRevenueByCategory(startDate, endDate);
       setRevenueByCategory(response5);
     
